@@ -1,0 +1,13 @@
+
+	<f:for each="{blogcounter}" as="count" iteration="blogIteration">
+	
+		<f:if condition="{count}=={blogoffset}">
+			<f:then>
+				<a class="button blog-button active-button" href="{f:uri.page(pageUid:pagestartuid)}/katlist/{blogkatlink}-{blogkatname}/{count}" title="Blog der Internetagentur Irma Berscheid-Kimeridze ✔ Agentur IBK">{count}</a>
+			</f:then>
+			<f:else>
+				<a class="button blog-button" href="{f:uri.page(pageUid:pagestartuid)}/katlist/{blogkatlink}-{blogkatname}/{count}" title="Blog der Internetagentur Irma Berscheid-Kimeridze ✔ Agentur IBK">{count}</a>
+			</f:else>
+		</f:if>
+	
+	</f:for>

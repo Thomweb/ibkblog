@@ -1,0 +1,40 @@
+<f:layout name="Default" />
+
+<f:section name="main">
+
+<div class="row">
+
+    <div class="col-12 col-sm-12 col-md-12">
+
+        <p><a href="#bloglist-all" class="button blog-toggle-open"><i class="fas fa-plus-square"></i> Alle Blogbeiträge ansehen</a>
+            <a href="#bloglist-all" class="button blog-toggle-close"><i class="fas fa-minus-square"></i> Übersicht der Blogbeiträge schließen</a></p>
+
+    </div>
+</div>
+
+<div class="row blog-toggle" id="bloglist-all">
+
+    <div class="col-12 col-sm-12 col-md-12">
+
+        <ul>
+            <f:for each="{blogs}" as="blog">
+
+                <li><f:if condition="{blog.link}">
+                    <f:then>
+                        <a class="bread_link_small" title="{blog.kurzfassung}" href="{f:uri.page(pageUid:pagestartuid)}/{blog.link}">{blog.titel} &brvbar; <f:format.date format="d.m.Y">{blog.datum}</f:format.date></a>
+                    </f:then>
+                    <f:else>
+                        <f:link.action action="show" class="bread_link_small" pluginName="blog" pageUid="{pagestartuid}" arguments="{blog: blog}" title="{blog.kurzfassung}">{blog.titel} &brvbar; <f:format.date format="d.m.Y">{blog.datum}</f:format.date></f:link.action>
+                    </f:else>
+                </f:if></li>
+
+            </f:for>
+        </ul>
+
+        <p><a href="#bloglist-all" class="button blog-toggle-close"><i class="fas fa-angle-up"></i> Übersicht schließen</a></p>
+
+    </div>
+
+</div>		
+
+</f:section>

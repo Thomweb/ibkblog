@@ -1,0 +1,64 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+	<f:layout name="Default" />
+
+	<f:section name="main">
+	
+		<div class="row">
+			<div class="col-md-12">
+				<h1>{blog.titel}</h1>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-12">
+				<img class="image-embed-item" title="{blog.kurzfassung}" alt="{blog.titel} - {blog.kurzfassung}" src="https://www.agentur-ibk.de/fileadmin/img/Blog/Blog-Nachrichten-Aktuelles-DSC00033-800x300-TYPO3-Wordpress-SEO-Agentur-Koeln.jpg" width="800" height="300">
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="col-md-12">
+				<h2>{blog.kurzfassung}</h2>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-9">
+				<div class="div_kasten">
+				
+					<i class="fas fa-keyboard"></i> <strong>{blog.name}</strong> <br/> 
+					
+					<i class="far fa-clock"></i> <f:format.date format="d.m.Y">{blog.datum}</f:format.date> um <f:format.date format="H:i:s">{blog.datum}</f:format.date> <br/> <br/> 
+					
+					<f:format.html>{blog.inhalt}</f:format.html>  
+
+					<f:if condition="{blog.link}">
+						<a href="/blog/{blog.link}" itemprop="url" title="{blog.titel}"><i class="far fa-copy"> </i> Link zum Post</a> <br/> <br/> 
+					</f:if>
+				</div>
+			</div>
+			<div class="col-md-3">
+			
+				<div class="row">
+					<f:if condition="{blog.kategorie}">
+						<div class="col-4 col-sm-4 col-md-12">
+							<strong>Kategorie</strong><br /><i class="fas fa-check-square"></i> <a href="{f:uri.page(pageUid:pagestartuid)}/katlist/{blog.kategorie.uid}-{blog.kategorie.name}" title="Kategorie: {blog.kategorie.name} ✔ Blog der Internetagentur Irma Berscheid-Kimeridze ✔ Agentur IBK">{blog.kategorie.name}</a><br /> <br /> 
+						</div>
+					</f:if>
+			
+					<f:if condition="{blog.tags}">
+						<div class="col-4 col-sm-4 col-md-12">
+							<strong>Tags</strong><f:for each="{blog.tags}" as="tag" iteration="tagIteration"><br /><i class="fas fa-check-square"></i> <a href="{f:uri.page(pageUid:pagestartuid)}/taglist/{tag.uid}-{tag.name}" title="Schlagwort: {tag.name} ✔ Blog der Internetagentur Irma Berscheid-Kimeridze ✔ Agentur IBK">{tag.name}</a></f:for><br /> <br /> 
+						</div>
+					</f:if>
+
+					<div class="col-4 col-sm-4 col-md-12">
+						<f:link.page pageUid="{pagestartuid}" class="button" title="Zur Übersicht ✔ Blog der Internetagentur Irma Berscheid-Kimeridze ✔ Agentur IBK"><i class="far fa-list-alt"></i> Zur Liste</f:link.page>
+					</div>
+				</div>
+
+			</div>
+				
+		</div>
+		
+	</f:section>
+</html>

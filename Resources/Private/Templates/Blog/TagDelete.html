@@ -1,0 +1,16 @@
+
+<f:layout name="Default" />
+
+<f:section name="main">
+<h2>Tag Entfernen</h2>
+
+	<div class="div_kasten">
+		<f:if condition="{message}">
+			<strong>{message}</strong><br/> <br/>
+			Diese Funktion ist deaktiviert, da sie defekte Referenzen auf bereits vegebene Tags erzeugen wird. <br/> <br/>
+			Löschen im Backend ist möglich.<br/> <br/>
+		</f:if>
+		<f:link.action action="tagShow" class="button">Alle Tags anzeigen...</f:link.action>
+	</div>
+
+</f:section>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="de" datatype="plaintext" original="messages" date="2020-04-30T23:53:31Z" product-name="ibkblog">
+		<header/>
+		<body>
+			<trans-unit id="name.description">
+				<source>name</source>
+			</trans-unit>
+			<trans-unit id="email.description">
+				<source>email</source>
+			</trans-unit>
+			<trans-unit id="titel.description">
+				<source>titel</source>
+			</trans-unit>
+			<trans-unit id="kurzfassung.description">
+				<source>kurzfassung</source>
+			</trans-unit>
+			<trans-unit id="inhalt.description">
+				<source>inhalt</source>
+			</trans-unit>
+			<trans-unit id="datum.description">
+				<source>datum</source>
+			</trans-unit>
+			<trans-unit id="link.description">
+				<source>link</source>
+			</trans-unit>
+			<trans-unit id="kategorie.description">
+				<source>kategorie</source>
+			</trans-unit>
+			<trans-unit id="tags.description">
+				<source>Tag cloud with multiple tags</source>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>

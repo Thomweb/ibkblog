@@ -1,0 +1,22 @@
+/* BLOG */
+/*
+@media(min-width:1px) {
+	#blogSliderTabs { min-height: 300px; }
+}
+
+@media(min-width:600px) {
+	#blogSliderTabs { min-height: 220px; }
+}
+
+@media(min-width:601px) {
+	#blogSliderTabs { min-height: 150px; }
+}
+
+#blogSliderTabs .div_blog_content, #blogSliderTabs .div_blog-button {
+	padding: 5px 10px 5px 5px;	
+}
+
+.blog-button {
+	line-height: 50px;  
+} 
+*/

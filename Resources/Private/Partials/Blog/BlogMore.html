@@ -1,0 +1,10 @@
+
+
+    <f:render partial="Blog/BlogList" arguments="{blogs:blogs}" />
+
+    <a class="button blog-button blog-more-items" 
+    data-url="{f:uri.action(action: 'more', controller: 'Blog', noCacheHash: 1, pluginName: 'PluginOne', arguments: '{page:pageneu}', pageType:'{settings.ajax.pluginOne}')}"
+    >
+    MORE Weitere Beiträge des Blog laden
+</a>
+

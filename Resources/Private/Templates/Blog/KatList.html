@@ -1,0 +1,37 @@
+
+<f:layout name="Default" />
+
+
+<f:section name="main">
+<h2>Kategorien</h2>
+
+<f:if condition="{kat}">
+	<div class="div_kasten">
+		<f:for each="{kat}" as="kategoriehead">
+			<f:link.action action="katList" arguments="{katid: kategoriehead.uid}">{kategoriehead.name} ({kategoriehead.counter})</f:link.action> 
+		</f:for> <br/> <br/> 
+	</div>
+</f:if>
+
+	Die Suche nach der Kategorie <strong>{katname} </strong> brachte <strong>{katnamecounter}</strong> Treffer.<br/> <br/> 
+
+<f:render partial="Blog/List" arguments="{blogs:blogs}" />
+
+<f:if condition="{katcounter}">
+	<div class="div_kasten">
+		<f:for each="{katcounter}" as="counter" iteration="katIteration">
+
+			<f:if condition="{counter}=={katoffset}">
+				<f:then>
+					<f:link.action action="katList" class="button blog-button" arguments="{blog: blog, offset: counter, katid: katid}"><strong>{counter}</strong></f:link.action>
+				</f:then>
+				<f:else>
+					<f:link.action action="katList" class="button blog-button" arguments="{blog: blog, offset: counter, katid: katid}">{counter}</f:link.action>
+				</f:else>
+			</f:if>
+		
+		</f:for>
+	</div>
+</f:if>	
+	
+</f:section>

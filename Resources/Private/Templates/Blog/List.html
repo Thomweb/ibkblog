@@ -1,0 +1,90 @@
+<f:layout name="Default" />
+
+<f:section name="main">
+
+	<div class="row">
+		<div class="col-md-12">
+			<h1>{title}</h1>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-md-12">
+			<img class="image-embed-item" title="Blog Agentur IBK ✔ Webseiten mit TYPO3 und Wordpress ✔ SEO ✔ PHP, HTML, CSS, mySQL, jQuery Frontend ✔ responsives Layout mit Bootstrap" alt="Blog Agentur IBK ✔ Webseiten mit TYPO3 und Wordpress ✔ SEO ✔ PHP, HTML, CSS, mySQL, jQuery Frontend ✔ responsives Layout mit Bootstrap" src="https://www.agentur-ibk.de/fileadmin/img/Blog/Blog-Nachrichten-Aktuelles-DSC00033-800x300-TYPO3-Wordpress-SEO-Agentur-Koeln.jpg" width="800" height="300">
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-md-8">
+
+			<div class="div_kasten moreblog">
+				<f:render partial="Blog/BlogList" arguments="{blogs:blogs}" />
+			</div>
+
+			<f:if condition="{controller}=='blog'">
+
+				<div class="div_kasten">
+					<a class="button blog-button blog-more-items"
+						data-url="{f:uri.action(action: 'more', controller: 'Blog', pluginName: 'PluginOne', arguments: '{page:2}', pageType:'{settings.ajax.pluginOne}')}"
+						>
+						<i class="fas fa-angle-double-down"></i> Weitere Beiträge laden
+					</a>
+				</div>
+
+			</f:if>
+
+			<div class="div_kasten">
+			<f:if condition="{blogcounter}">
+
+				<f:if condition="{controller}=='kat'">
+					<f:render partial="Blog/Katbuttons" arguments="{blogs:blogs, blogcounter: blogcounter, blogoffset: blogoffset, blogkatlink: blogkatlink, blogkatname: blogkatname}" />
+				</f:if>
+
+				<f:if condition="{controller}=='tag'">
+					<f:render partial="Blog/Tagbuttons" arguments="{blogs:blogs, blogcounter: blogcounter, blogoffset: blogoffset, blogtaglink: blogtaglink, blogtagname: blogtagname}" />
+				</f:if>
+
+			</f:if>
+			</div>
+		</div>
+		<div class="col-md-4">
+			<div class="blog_tags">
+				<f:if condition="{tagcloudarray}">
+					<f:then>
+						<f:for each="{tagcloudarray}" as="tag">
+							<a style="font-size: {tag.counter+12}px;" href="{f:uri.page(pageUid:pagestartuid)}/taglist/{tag.uid}-{tag.name}" title="Schlagwort: {tag.name} ({tag.counter} Beiträge) ✔ Blog der Internetagentur Irma Berscheid-Kimeridze ✔ Agentur IBK">{tag.name}</a>
+						</f:for>
+					</f:then>
+				</f:if>
+
+				<f:if condition="{kat}"><br/> <br/><strong>Kategorien</strong><br/>
+					<f:for each="{kat}" as="kategoriehead">
+						<f:if condition="{kategoriehead.uid}=={blogkatlink}">
+							<f:then>
+								<a href="{f:uri.page(pageUid:pagestartuid)}/katlist/{kategoriehead.uid}-{kategoriehead.name}" title="Kategorie: {kategoriehead.name} ✔ Blog der Internetagentur Irma Berscheid-Kimeridze ✔ Agentur IBK"><i class="fas fa-check-square"></i> <strong>{kategoriehead.name} ({kategoriehead.counter})</strong></a><br/>
+							</f:then>
+							<f:else>
+								<a href="{f:uri.page(pageUid:pagestartuid)}/katlist/{kategoriehead.uid}-{kategoriehead.name}" title="Kategorie: {kategoriehead.name} ✔ Blog der Internetagentur Irma Berscheid-Kimeridze ✔ Agentur IBK">{kategoriehead.name} ({kategoriehead.counter})</a><br/>
+							</f:else>
+						</f:if>
+					</f:for> <br/> <br/>
+				</f:if>
+				<f:if condition="{tagshowarray}">
+					<f:then><strong>Schlagworte</strong><br/>
+						<f:for each="{tagshowarray}" as="tag">
+							<f:if condition="{tag.uid}=={blogtaglink}">
+								<f:then>
+									<a href="{f:uri.page(pageUid:pagestartuid)}/taglist/{tag.uid}-{tag.name}" title="Schlagwort: {tag.name} ✔ Blog der Internetagentur Irma Berscheid-Kimeridze ✔ Agentur IBK"><i class="fas fa-check-square"></i> <strong>{tag.name} ({tag.counter})</strong></a><br/>
+								</f:then>
+								<f:else>
+									<a href="{f:uri.page(pageUid:pagestartuid)}/taglist/{tag.uid}-{tag.name}" title="Schlagwort: {tag.name} ✔ Blog der Internetagentur Irma Berscheid-Kimeridze ✔ Agentur IBK">{tag.name} ({tag.counter})</a><br/>
+								</f:else>
+							</f:if>
+						</f:for> <br/>
+					</f:then>
+				</f:if>
+			</div>
+		</div>
+	</div>
+
+</f:section>

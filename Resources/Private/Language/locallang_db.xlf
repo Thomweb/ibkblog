@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="de" datatype="plaintext" original="messages" date="2020-04-30T23:53:31Z" product-name="ibkblog">
+		<header/>
+		<body>
+			<trans-unit id="tx_ibkblog_domain_model_blog">
+				<source>Blog</source>
+			</trans-unit>
+			<trans-unit id="tx_ibkblog_domain_model_blog.name">
+				<source>Das ist der Name von dem Nikolaus</source>
+			</trans-unit>
+			<trans-unit id="tx_ibkblog_domain_model_blog.email">
+				<source>Email</source>
+			</trans-unit>
+			<trans-unit id="tx_ibkblog_domain_model_blog.titel">
+				<source>Titel</source>
+			</trans-unit>
+			<trans-unit id="tx_ibkblog_domain_model_blog.kurzfassung">
+				<source>Kurzfassung</source>
+			</trans-unit>
+			<trans-unit id="tx_ibkblog_domain_model_blog.inhalt">
+				<source>Inhalt</source>
+			</trans-unit>
+			<trans-unit id="tx_ibkblog_domain_model_blog.datum">
+				<source>Datum</source>
+			</trans-unit>
+			<trans-unit id="tx_ibkblog_domain_model_blog.link">
+				<source>Link</source>
+			</trans-unit>
+			<trans-unit id="tx_ibkblog_domain_model_blog.kategorie">
+				<source>Kategorie</source>
+			</trans-unit>
+			<trans-unit id="tx_ibkblog_domain_model_blog.tags">
+				<source>Tags</source>
+			</trans-unit>
+			<trans-unit id="tx_ibkblog_domain_model_kategorie">
+				<source>Kategorie</source>
+			</trans-unit>
+			<trans-unit id="tx_ibkblog_domain_model_kategorie.name">
+				<source>Name</source>
+			</trans-unit>
+			<trans-unit id="tx_ibkblog_domain_model_tag">
+				<source>Tag</source>
+			</trans-unit>
+			<trans-unit id="tx_ibkblog_domain_model_tag.name">
+				<source>Name</source>
+			</trans-unit>
+			<trans-unit id="tx_ibkblog_blog.name">
+				<source>Blog</source>
+			</trans-unit>
+			<trans-unit id="tx_ibkblog_blog.description">
+				<source>Der Blog der Agentur IBK der - NEU 2024</source>
+			</trans-unit>
+			<trans-unit id="tx_ibkblog_blog.error">
+				<source>Leider kein Blogbeitrag gefunden.</source>
+			</trans-unit>
+			<trans-unit id="tx_ibkblog_reader.name">
+				<source>Blog für zu Lesen</source>
+			</trans-unit>
+			<trans-unit id="tx_ibkblog_reader.description">
+				<source>Beschreibung (Reader)</source>
+			</trans-unit>
+			<trans-unit id="tx_ibkblog_searchform.name">
+				<source>Blog Suche</source>
+			</trans-unit>
+			<trans-unit id="tx_ibkblog_searchform.description">
+				<source>Beschreibung (Suche)</source>
+			</trans-unit>
+			<trans-unit id="tx_ibkblog_kategories.name">
+				<source>Blog Kategorien</source>
+			</trans-unit>
+			<trans-unit id="tx_ibkblog_kategories.description">
+				<source>Darstellung von Kategorien</source>
+			</trans-unit>
+			<trans-unit id="tx_ibkblog_tag.name">
+				<source>Blog Schlagworte</source>
+			</trans-unit>
+			<trans-unit id="tx_ibkblog_tag.description">
+				<source>Darstellung von Schlagworten</source>
+			</trans-unit>
+			<trans-unit id="tx_ibkblog_taglist.name">
+				<source>Blog Liste Schlagworte</source>
+			</trans-unit>
+			<trans-unit id="tx_ibkblog_taglist.description">
+				<source>Listenansicht von Schlagworten</source>
+			</trans-unit>
+			<trans-unit id="tx_ibkblog_pagelist.name">
+				<source>Blog alle Beiträge</source>
+			</trans-unit>
+			<trans-unit id="tx_ibkblog_pagelist.description">
+				<source>Listenansicht aller Blogbeiträge</source>
+			</trans-unit>
+			<trans-unit id="tx_ibkblog_pagegrid.name">
+				<source>Alle Beiträge Blog GRID</source>
+			</trans-unit>
+			<trans-unit id="tx_ibkblog_pagegrid.description">
+				<source>Listenansicht für GRID Blogbeiträge jede Seite</source>
+			</trans-unit>
+			<trans-unit id="tx_ibkblog_pageall.name">
+				<source>Blog alle Beiträge</source>
+			</trans-unit>
+			<trans-unit id="tx_ibkblog_pageall.description">
+				<source>Liste aller Blogbeiträge TEST Version</source>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>

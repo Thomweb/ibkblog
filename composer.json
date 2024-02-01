@@ -1,0 +1,38 @@
+{
+    "name": "ibk/ibkblog",
+    "type": "typo3-cms-extension",
+    "description": "Der Blog für die Webseite der Internetagentur Irma Berscheid-Kimeridze in Köln - Agentur IBK",
+    "authors": [
+        {
+            "name": "Thomas Berscheid",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "typo3/cms-core": "^9.5 || 10.2.0 - 12.4.99"
+    },
+    "autoload": {
+        "psr-4": {
+            "Ibk\\Ibkblog\\": "Classes"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Ibk\\Ibkblog\\Tests\\": "Tests",
+            "Ibk\\Ibkblog\\": "Classes"
+        },
+        "classmap": [
+            "Classes"
+          ]
+    },
+    "extra": {
+        "typo3/cms": {
+            "extension-key": "ibkblog",
+            "web-dir": ".Build/web"
+        }
+    },
+    "replace": {
+        "ibk/ibkblog": "self.version",
+        "typo3-ter/ibkblog": "self.version"
+    }
+}

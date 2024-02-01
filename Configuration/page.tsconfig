@@ -1,0 +1,74 @@
+####################################################
+### IBK Blog Page TsConfig                       ###
+####################################################
+
+mod {
+    wizards.newContentElement.wizardItems.plugins {
+        elements {
+            blog {
+                iconIdentifier = mimetypes-x-content-login
+                title = LLL:EXT:ibkblog/Resources/Private/Language/locallang_db.xlf:tx_ibkblog_blog.name
+                description = LLL:EXT:ibkblog/Resources/Private/Language/locallang_db.xlf:tx_ibkblog_blog.description
+                tt_content_defValues {
+                    CType = list
+                    list_type = ibkblog_blog
+                }
+            }
+            kategories {
+                iconIdentifier = mimetypes-open-document-drawing
+                title = LLL:EXT:ibkblog/Resources/Private/Language/locallang_db.xlf:tx_ibkblog_kategories.name
+                description = LLL:EXT:ibkblog/Resources/Private/Language/locallang_db.xlf:tx_ibkblog_kategories.description
+                tt_content_defValues {
+                    CType = list
+                    list_type = ibkblog_kategories
+                }
+            }
+            tag {
+                iconIdentifier = mimetypes-open-document-drawing
+                title = LLL:EXT:ibkblog/Resources/Private/Language/locallang_db.xlf:tx_ibkblog_tag.name
+                description = LLL:EXT:ibkblog/Resources/Private/Language/locallang_db.xlf:tx_ibkblog_tag.description
+                tt_content_defValues {
+                    CType = list
+                    list_type = ibkblog_tag
+                }
+            }
+            taglist {
+                iconIdentifier = mimetypes-open-document-drawing
+                title = LLL:EXT:ibkblog/Resources/Private/Language/locallang_db.xlf:tx_ibkblog_taglist.name
+                description = LLL:EXT:ibkblog/Resources/Private/Language/locallang_db.xlf:tx_ibkblog_taglist.description
+                tt_content_defValues {
+                    CType = list
+                    list_type = ibkblog_taglist
+                }
+            }
+            pagelist {
+                iconIdentifier = apps-clipboard-list
+                title = LLL:EXT:ibkblog/Resources/Private/Language/locallang_db.xlf:tx_ibkblog_pagelist.name
+                description = LLL:EXT:ibkblog/Resources/Private/Language/locallang_db.xlf:tx_ibkblog_pagelist.description
+                tt_content_defValues {
+                    CType = list
+                    list_type = ibkblog_pagelist
+                }
+            }
+            pagegrid {
+                iconIdentifier = apps-clipboard-list
+                title = LLL:EXT:ibkblog/Resources/Private/Language/locallang_db.xlf:tx_ibkblog_pagegrid.name
+                description = LLL:EXT:ibkblog/Resources/Private/Language/locallang_db.xlf:tx_ibkblog_pagegrid.description
+                tt_content_defValues {
+                    CType = list
+                    list_type = ibkblog_pagegrid
+                }
+            }
+            pageall {
+                iconIdentifier = apps-clipboard-list
+                title = LLL:EXT:ibkblog/Resources/Private/Language/locallang_db.xlf:tx_ibkblog_pageall.name
+                description = LLL:EXT:ibkblog/Resources/Private/Language/locallang_db.xlf:tx_ibkblog_pageall.description
+                tt_content_defValues {
+                    CType = list
+                    list_type = ibkblog_pageall
+                }
+            }
+        }
+        show = *
+    }
+}

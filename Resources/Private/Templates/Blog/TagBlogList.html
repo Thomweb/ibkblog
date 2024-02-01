@@ -1,0 +1,14 @@
+
+<f:layout name="Default" />
+
+<f:section name="main">
+	
+	<div class="div_kasten">
+		<f:if condition="{kat}"><br/>Kategorien: 
+			<f:for each="{kat}" as="kategorie">
+				<f:link.action action="katList" arguments="{katid: kategorie.uid}">{kategorie.name} ({kategorie.counter})</f:link.action> 
+			</f:for>
+		</f:if>
+	</div>
+
+</f:section>

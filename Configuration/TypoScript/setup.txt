@@ -1,0 +1,140 @@
+plugin.tx_ibkblog {
+	view {
+		templateRootPath = {$plugin.tx_ibkblog.view.templateRootPath}
+		partialRootPath = {$plugin.tx_ibkblog.view.partialRootPath}
+		layoutRootPath = {$plugin.tx_ibkblog.view.layoutRootPath}
+	}
+	persistence {
+		storagePid = {$plugin.tx_ibkblog.persistence.storagePid}
+	}
+	settings {
+		storagePid = {$plugin.tx_ibkblog.persistence.storagePid}
+		pageLoginUID = {$plugin.tx_ibkblog.pages.pageLoginUID}
+		pageStartUID = {$plugin.tx_ibkblog.pages.pageStartUID}
+	}
+}
+
+### Get current Domain
+lib.currentURL= TEXT
+lib.currentURL.data = getIndpEnv:TYPO3_REQUEST_HOST
+
+################################################################
+### Query String auslesen / Breadcrumb Navigation füllen     ###
+################################################################
+
+#page.10 {
+#	variables {
+#		bloglink = TEXT
+#		bloglink.data = getenv : REQUEST_URI
+#		bloglink.split.token = /
+#		bloglink.split.returnKey = 2
+#	}
+#}
+
+
+################################################################
+### HeaderData für den Blog aufbauen                         ###
+################################################################
+
+page {
+	headerData { 
+		## META Canonical tag
+#		200 = TEXT
+#		200 {
+#			htmlSpecialChars = 1
+#			typolink {
+#				parameter.data = TSFE:id
+#				returnLast = url
+#				addQueryString = 1
+#				addQueryString.method = GET
+#				forceAbsoluteUrl = 1
+#				useCacheHash = 0
+#			}
+#    		wrap = <link rel="canonical" href="|">
+#	    }
+
+		## Open Graph URL 
+		210 = TEXT
+		210 {
+			htmlSpecialChars = 1    
+			typolink {
+				parameter.data = TSFE:id
+				returnLast = url
+				addQueryString = 1
+				addQueryString.method = GET
+				forceAbsoluteUrl = 1
+			}
+			wrap = <meta property="og:url" content="|" />
+	    }
+  	}
+}
+
+#[getTSFE()?.id == 75]
+#page.10 = FLUIDTEMPLATE
+#page.10 {
+#	variables {
+#		page_blog = TEXT
+#		page_blog.value = Ja leck mich
+#	}
+#
+#
+#}
+#[getTSFE()]
+
+################################################################
+### Config pageTitleProviders                                ###
+################################################################
+
+config {
+	pageTitleProviders {
+		ibkblog {
+			provider = Ibk\Ibkblog\PageTitle\PageTitleProvider
+			before = record
+		}
+	}
+}
+
+################################################################
+### Ajax für asynchrones Nachladen von Listen Inhalten       ###
+################################################################
+
+
+# plugin configuration
+plugin.tx_ibkblog {
+   settings {
+      # default items per page for asynchronous requests
+      defaultItemsPerPage = 12
+       
+      # ajax page types
+      ajax{
+         pluginOne = 666
+         pluginTwo = 4711
+      }
+   }
+}
+ 
+# ajax action plugin one
+ajax_ibkblog_pluginone = PAGE
+ajax_ibkblog_pluginone {
+   typeNum < plugin.tx_ibkblog.settings.ajax.pluginOne
+   10 < tt_content.list.20.ibkblog_pluginone
+  
+   config {
+      disableAllHeaderCode = 1
+      additionalHeaders = Content-type:text/html
+      xhtml_cleaning = 0
+      admPanel = 0
+      debug = 0
+      no_cache = 1
+   }
+}
+ 
+# ajax action plugin two
+ajax_ibkblog_plugintwo < ajax_ibkblog_pluginone
+ajax_ibkblog_plugintwo {
+   typeNum < plugin.tx_ibkblog.settings.ajax.pluginTwo
+   10 < tt_content.list.20.ibkblog_plugintwo
+   config {
+      additionalHeaders = Content-type:application/json
+   }
+}

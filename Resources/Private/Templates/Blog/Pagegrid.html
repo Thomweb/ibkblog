@@ -1,0 +1,41 @@
+<f:layout name="Default" />
+
+<f:section name="main">
+
+<div class="row" id="bloggrid">
+    
+
+    <f:for each="{blogs}" as="blog" iteration="blogToggleIteration1">
+
+        <div class="col-12 col-sm-6 col-md-4 blog-grid">
+
+            <article class="blog-grid-content">
+
+                <h4><img class="blog-img-grid" title="{blog.titel} ✔ {blog.kurzfassung}" alt="{blog.titel} ✔ {blog.kurzfassung}" src="https://www.agentur-ibk.de/fileadmin/img/Blog/Blog-Nachrichten-Aktuelles-DSC00033-50x50-TYPO3-Wordpress-SEO-Agentur-Koeln.jpg" width="50" height="50">{blog.titel}</h4>
+
+                <p>{blog.kurzfassung}</p>
+
+                <p><f:format.date format="d.m.Y">{blog.datum}</f:format.date> &brvbar; {blog.name}</p>
+
+                <p>
+                    <f:if condition="{blog.link}">
+                        <f:then>
+                            <a class="button blog-page-button" title="{blog.kurzfassung}" href="{f:uri.page(pageUid:pagestartuid)}/{blog.link}"><i class="fas fa-book-reader"></i> Beitrag im Blog</a>
+                        </f:then>
+                        <f:else>
+                            <f:link.action action="show" class="button blog-page-button" pluginName="blog" pageUid="{pagestartuid}" arguments="{blog: blog}" title="{blog.kurzfassung}"><i class="fab fa-facebook-square"></i> Beitrag im Blog</f:link.action>
+                        </f:else>
+                    </f:if>
+                </p>
+
+            </article>
+
+        </div>
+
+    </f:for>
+
+    
+
+</div>		
+
+</f:section>

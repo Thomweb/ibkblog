@@ -1,0 +1,36 @@
+
+<f:layout name="Default" />
+
+
+<f:section name="main">
+<h2>Ergebnisse der Suche</h2>
+
+
+<f:if condition="{countsearchall}">
+	Die Suche nach <strong>{searchword}</strong> brachte <strong>{countsearchall}</strong> Treffer.<br/> <br/> 
+</f:if>		
+
+<f:if condition="{nomessage}">
+	<strong>{nomessage}</strong><br/> <br/> 
+</f:if>		
+
+<f:render partial="Blog/List" arguments="{blogs:blogs, blogheadline: blogheadline}" />
+
+<f:if condition="{searchcounter}">
+	<div class="div_kasten">
+		<f:for each="{searchcounter}" as="counter" iteration="searchIteration">
+		
+			<f:if condition="{counter}=={searchoffset}">
+				<f:then>
+					<f:link.action action="searchList" class="button blog-button" arguments="{blog: blog, offset: counter, searchwordlink: searchwordlink}"><strong>{counter}</strong></f:link.action>
+				</f:then>
+				<f:else>
+					<f:link.action action="searchList" class="button blog-button" arguments="{blog: blog, offset: counter, searchwordlink: searchwordlink}">{counter}</f:link.action>
+				</f:else>
+			</f:if>
+		
+		</f:for>
+	</div>
+</f:if>	
+	
+</f:section>

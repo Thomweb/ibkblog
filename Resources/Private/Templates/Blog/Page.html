@@ -1,0 +1,61 @@
+<f:layout name="Default" />
+
+<f:section name="main">
+
+<div id="carouselBlog" class="carousel slide" data-ride="carousel">
+
+	<!-- Dots ANFANG-->
+
+	<ol class="carousel-indicators">
+
+		<f:for each="{blogs}" as="blog" iteration="blogDotIteration">
+
+			<f:if condition="{blogDotIteration.index}==0">
+				<f:then>
+					<li data-target="#carouselBlog" data-slide-to="0" class="active"></li>
+				</f:then>
+				<f:else>
+					<li data-target="#carouselBlog" data-slide-to="{blogDotIteration.index}"></li>
+				</f:else>
+			</f:if>
+
+		</f:for>
+
+	</ol>
+
+	<!-- Dots ENDE-->
+
+	<!-- Slides ANFANG-->
+
+	<div class="carousel-inner">
+		
+		<f:for each="{blogs}" as="blog" iteration="blogIdIteration">
+
+			<f:if condition="{blogIdIteration.index}==0">
+				<f:then>
+					<div class="carousel-item active">
+				</f:then>
+				<f:else>
+					<div class="carousel-item">
+				</f:else>
+			</f:if>
+
+				<div class="div_blog_content">
+					<strong>{blog.titel}</strong><br/>
+					{blog.name} &#8227; <f:format.date format="d.m.Y">{blog.datum}</f:format.date>, <f:format.date format="H:i:s">{blog.datum}</f:format.date> 				
+					<br/>{blog.kurzfassung}
+				</div>							
+				<div class="div_blog_button">					
+					<f:link.page pageUid="{pagestartuid}" class="button blog-page-button" title="Blog der Internetagentur Irma Berscheid-Kimeridze, Köln: Responsive Webseiten mit TYPO3, Wordpress und Bootstrap">&#10132; Zum Blog</f:link.page>
+				</div>		
+				
+			</div>		
+		</f:for>
+
+	</div>
+
+	<!-- Slides ENDE-->
+
+</div>		
+
+</f:section>

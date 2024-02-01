@@ -1,0 +1,11 @@
+<f:layout name="Default" />
+<f:section name="main">
+	<f:for each="{blogs}" as="blog">
+	<item>
+		<title>{blog.titel}</title>
+		<description>{blog.kurzfassung}</description>
+		<author>{blog.name}</author>
+		<link><f:uri.action action="show" absolute="TRUE" arguments="{blog: blog}" /></link>
+	</item>
+	</f:for>
+</f:section>

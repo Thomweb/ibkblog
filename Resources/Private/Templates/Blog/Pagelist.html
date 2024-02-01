@@ -1,0 +1,32 @@
+<f:layout name="Default" />
+
+<f:section name="main">
+
+<div class="row">
+    <div class="col-11 col-sm-11 col-md-11">
+        <strong>Neu im Blog unserer Agentur:</strong><br />
+
+        <f:for each="{blogs}" as="blog" iteration="blogToggleIteration1">
+
+            <f:if condition="{blogToggleIteration1.index}==0">
+                
+                <f:if condition="{blog.link}">
+                    <f:then>
+                        <a class="bread_link_small" title="{blog.kurzfassung}" href="{f:uri.page(pageUid:pagestartuid)}{blog.link}">&raquo;&nbsp;{blog.titel} &brvbar; <f:format.date format="d.m.Y">{blog.datum}</f:format.date></a>
+                    </f:then>
+                    <f:else>
+                        <f:link.action action="show" class="bread_link_small" pluginName="blog" pageUid="{pagestartuid}" arguments="{blog: blog}" title="{blog.kurzfassung}">&raquo;&nbsp;{blog.titel} &brvbar; <f:format.date format="d.m.Y">{blog.datum}</f:format.date></f:link.action>
+                    </f:else>
+                </f:if>
+
+            </f:if>
+
+        </f:for>
+
+    </div>
+    <div class="col-1 col-sm-1 col-md-1">
+        <a class="bread_link_small" href="#aside-blogbottom" title="Mehr aus dem Blog Internetagentur Irma Berscheid-Kimeridze">[&#9660;]</a>
+    </div>    
+</div>		
+
+</f:section>

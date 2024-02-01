@@ -1,0 +1,31 @@
+<f:if condition="{blogheadline}">
+	<h2>{blogheadline}</h2>
+</f:if>
+
+<f:for each="{blogs}" as="blog">
+	<div class="row">
+	<article class="col-12 col-sm-12 col-md-12">
+		<h2>{blog.titel}</h2>
+		<p><i class="far fa-keyboard"></i> {blog.name} <i class="far fa-clock"></i> <f:format.date format="d.m.Y">{blog.datum}</f:format.date></p>
+		
+		<p>{blog.kurzfassung}</p> 
+		
+		<f:if condition="{blog.link}">
+
+			<f:then>
+				<p><a class="button blog-button" title="{blog.kurzfassung}" href="{f:cObject(typoscriptObjectPath: 'lib.currentURL')}/blog/{blog.link}"><i class="fas fa-book-reader"></i> Beitrag lesen</a>
+			</f:then>
+			<f:else>
+				<p><f:link.action action="show" class="button blog-button" arguments="{blog: blog}" title="{blog.kurzfassung}"><i class="fas fa-book-reader"></i> Beitrag lesen</f:link.action></p>
+			</f:else>
+
+		</f:if>
+	
+	</article>
+	</div>
+	
+</f:for>
+
+	
+
+

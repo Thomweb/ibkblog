@@ -1,0 +1,30 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+<label for="name">
+	<f:translate key="tx_ibkblog_domain_model_blog.name" />
+</label><br />
+	<f:form.textfield property="name" /><br />
+<label for="email">
+	<f:translate key="tx_ibkblog_domain_model_blog.email" />
+</label><br />
+	<f:form.textfield property="email" /><br />
+<label for="titel">
+	<f:translate key="tx_ibkblog_domain_model_blog.titel" />
+</label><br />
+	<f:form.textfield property="titel" /><br />
+<label for="kurzfassung">
+	<f:translate key="tx_ibkblog_domain_model_blog.kurzfassung" />
+</label><br />
+	<f:form.textarea property="kurzfassung" cols="40" rows="15" /><br />
+<label for="inhalt">
+	<f:translate key="tx_ibkblog_domain_model_blog.inhalt" />
+</label><br />
+	<f:form.textarea property="inhalt" cols="40" rows="15" /><br />
+<label for="datum">
+	<f:translate key="tx_ibkblog_domain_model_blog.datum" />
+</label><br />
+	<f:form.textfield property="datum" value="{blog.datum->f:format.date()}" /><br />
+<label for="link">
+	<f:translate key="tx_ibkblog_domain_model_blog.link" />
+</label><br />
+	<f:form.textfield property="link" /><br />
+</html>

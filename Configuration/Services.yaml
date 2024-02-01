@@ -1,0 +1,15 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
+
+  Ibk\Ibkblog\:
+    resource: '../Classes/*'
+
+  Ibk\Ibkblog\Controller\BlogController:
+    public: true
+
+  Ibk\Ibkblog\PageTitle\PageTitleProvider:
+    public: true
+

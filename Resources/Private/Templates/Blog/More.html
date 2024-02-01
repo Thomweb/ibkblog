@@ -1,0 +1,45 @@
+<f:layout name="Default" />
+
+<f:section name="main">
+
+    <script>
+        jQuery('.still-more-items').on('click', function(){
+
+            var url = jQuery(this).data('url');
+            var page = jQuery(this).data('page');
+            var format = 'html';
+
+            $.ajax({
+                type: "POST",
+                url: url,
+                page: page,
+                dataType: format,
+                headers: {
+                    'Cache-Control': 'no-cache, no-store, must-revalidate',
+                    'Pragma': 'no-cache',
+                    'Expires': '0'
+                },
+                success: function (content) {
+                    $(".still-more-items").remove();
+                    $(".moreblog").append(content);
+                }
+            });
+        });	
+    </script>
+
+    <f:render partial="Blog/BlogList" arguments="{blogs:blogs}" />
+
+    <f:if condition="{pageneu}<={pageall}">
+
+    <div class="div_kasten">
+        <a class="button blog-button still-more-items" 
+            data-page="3"
+            data-url="{f:uri.action(action: 'more', controller: 'Blog', pluginName: 'PluginOne', arguments: '{page:pageneu}', pageType:'{settings.ajax.pluginOne}')}"
+            >
+            <i class="fas fa-chevron-down"></i> Mehr Beiträge laden
+        </a>
+    </div>
+
+    </f:if>
+    
+</f:section>

@@ -1,0 +1,26 @@
+
+<f:layout name="Default" />
+
+<f:section name="main">
+<h2>Alle Tags</h2>
+
+	<f:if condition="{tagshowarray}">
+	
+		<div class="div_kasten">
+			<f:then>
+				<f:for each="{tagshowarray}" as="tag">
+				{tag.name} <f:link.action action="tagDelete" arguments="{tagid: tag.uid}" pluginName="Tag">Löschen</f:link.action><br/> 
+				</f:for>
+			</f:then>
+		</div>
+	</f:if>
+
+	<div class="div_kasten">
+		<f:form action="tagAdd" additionalAttributes="{role: 'form'}" pluginName="Tag">
+			<fieldset class="field_search">
+				<f:form.textfield id="tagName" name="tagName" value="" class="search-form-input" /><f:form.submit value="Tag hinzufügen" class="search-form-button" />
+			</fieldset>
+		</f:form>		
+	</div>
+
+</f:section>

@@ -1,0 +1,24 @@
+
+plugin.tx_ibkblog {
+	view {
+		# cat=plugin.tx_ibkblog/file; type=string; label=Path to template root (FE):Pfad zur Mutter aller Templates
+		templateRootPath = EXT:ibkblog/Resources/Private/Templates/
+		# cat=plugin.tx_ibkblog/file; type=string; label=Path to template partials (FE):Pfad zu den Partials, welche im Mutter Template angesprochen und geladen werden
+		partialRootPath = EXT:ibkblog/Resources/Private/Partials/
+		# cat=plugin.tx_ibkblog/file; type=string; label=Path to template layouts (FE):Pfad zu den Layout Dateien zur Steuerung des Layout des Blogs
+		layoutRootPath = EXT:ibkblog/Resources/Private/Layouts/
+	}
+	persistence {
+		# cat=plugin.tx_ibkblog//a; type=string; label=Default storage PID Blog Data:Speicherort für die Daten des Blog
+		storagePid = 49
+	}
+	pages {
+		# PageUID for login; label=Default UID Login Page:UID der Seite für das Login zum Blog
+		pageLoginUID = 75
+		# PageUID for Start page Blog; label=Default UID Start Page for Blog:UID der Startseite für den Blog
+		pageStartUID = 75
+
+	}
+	
+}
+
