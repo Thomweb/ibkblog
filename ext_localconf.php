@@ -102,24 +102,3 @@ ExtensionUtility::configurePlugin(
         BlogController::class => 'pagegrid'
     ]
 );
-
-//call_user_func(
-//    function()
-//    {
-//
-//        unset($GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['TYPO3\CMS\Frontend\Page\PageGenerator']['generateMetaTags']['canonical']);
-//
-//        // Page Title aus Blog in <TITLE> Tag schreiben
-//        \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTypoScriptSetup(trim('
-//            config.pageTitleProviders {
-//                own {
-//                    provider = Ibk\Ibkblog\Controller\IbkblogTitleProvider
-//                    before = record
-//                    after = altPageTitle
-//                }
-//            }
-//        '));
-//
-//
-//    }
-//);
