@@ -26,13 +26,23 @@
                             <div class="col-md-12 blog-titel">
                                 <div>
                                     <h2 itemprop="abstract">{blog.kurzfassung}</h2>
-                                    <i class="fas fa-keyboard"></i> <strong><span itemprop="author">{blog.name}</span></strong>
+                                    <i class="fas fa-keyboard"></i>
+                                        <span itemprop="author">
+                                        <strong>{blog.name}</strong>
+
+                                        <f:link.page
+                                                pageUid="{settings.pageTBUID}"
+                                                additionalAttributes="{itemprop: 'url'}"
+                                                title="Thomas Berscheid ✔ Agentur IBK">
+                                            <i class="fas fa-address-card"></i>
+                                        </f:link.page>
+                                    </span>
                                     <div class="clearfix"></div>
                                     <i class="far fa-clock"></i>
                                     <time
                                             itemprop="datePublished"
-                                            datetime="{blog.datum -> f:format.date(format: 'd-m-Y H:i:s')}">
-                                        {blog.datum -> f:format.date(format: 'd.m.Y H:i:s')}
+                                            datetime="{blog.datum -> f:format.date(format: 'c')}">
+                                        {blog.datum -> f:format.date(format: 'd.m.Y H:i')}
                                     </time>
                                 </div>
                             </div>

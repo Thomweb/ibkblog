@@ -11,6 +11,7 @@ plugin.tx_ibkblog {
 		storagePid = {$plugin.tx_ibkblog.persistence.storagePid}
 		pageLoginUID = {$plugin.tx_ibkblog.pages.pageLoginUID}
 		pageStartUID = {$plugin.tx_ibkblog.pages.pageStartUID}
+		pageTBUID = {$plugin.tx_ibkblog.pages.pageTBUID}
 	}
 }
 

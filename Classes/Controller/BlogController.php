@@ -3,17 +3,15 @@ namespace Ibk\Ibkblog\Controller;
 
 use Doctrine\DBAL\Exception;
 use Ibk\Ibkblog\PageTitle\PageTitleProvider;
+use Ibk\Ibkblog\Services\MetatagServices;
 use Ibk\Ibkblog\Domain\Model\Blog;
 use Psr\Http\Message\ResponseInterface;
 use Ibk\Ibkblog\Domain\Repository\BlogRepository;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
-use TYPO3\CMS\Extbase\Annotation\IgnoreValidation;
 use TYPO3\CMS\Core\MetaTag\MetaTagManagerRegistry;
+use TYPO3\CMS\Core\Page\PageRenderer;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Object\ObjectManager\ObjectManager;
-use TYPO3\CMS\Core\Site\SiteFinder;
-use TYPO3\CMS\Extbase\Mvc\Request;
-use Psr\Http\Message\ServerRequestInterface;
 use TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException;
 
 /***************************************************************
@@ -65,19 +63,24 @@ class BlogController extends ActionController
     public function __construct(
         BlogRepository $blogRepository,
         MetaTagManagerRegistry $metaTagManagerRegistry,
+        PageRenderer $pageRenderer,
+        MetatagServices $metatagServices,
         private readonly PageTitleProvider $pageTitleProvider
     )
     {
         $this->blogRepository = $blogRepository;
         $this->metaTagManagerRegistry = $metaTagManagerRegistry;
+        $this->pageRenderer = $pageRenderer;
+        $this->metatagServices = $metatagServices;
     }
 
 
     /**
      * action showByLink
-     * 
+     *
      * @param int $bloguid
      * @return ResponseInterface
+     * @throws \Exception
      */
     public function showByLinkAction(int $bloguid = 0) :ResponseInterface
     {
@@ -92,11 +95,17 @@ class BlogController extends ActionController
 
                 $blogTitel = $blog->getTitel();
 
+                $data = 'Hier kommt die Maus';
+
+                $headerData = '<script type="application/ld+json">' . json_encode($data) . '</script>';
+
+                $this->pageRenderer->addHeaderData($headerData);
+
                 $this->pageTitleProvider->setTitle($blogTitel);
-                $this->setMetaTitle($blogTitel);
-                $this->setMetaDescription($blog->getKurzfassung());
-                $this->setMetaDate($blog->getDatum());
-                $this->setMetaName($blog->getName());
+                $this->metatagServices->setMetaTitle($blogTitel);
+                $this->metatagServices->setMetaDescription($blog->getKurzfassung());
+                $this->metatagServices->setMetaDate($blog->getDatum());
+                $this->metatagServices->setMetaName($blog->getName());
 
                 // Commit all data to view
                 $this->view->assign('blog', $blog);
@@ -131,9 +140,9 @@ class BlogController extends ActionController
         $pageStartUID = $this->settings['pageStartUID'];
 
         // Fill <TITLE> Tag from Blog Posts
-        $this->setMetaTitle($blog->getTitel());
-        $this->setMetaDescription($blog->getKurzfassung());
-        $this->setMetaName($blog->getName());
+        $this->metatagServices->setMetaTitle($blog->getTitel());
+        $this->metatagServices->setMetaDescription($blog->getKurzfassung());
+        $this->metatagServices->setMetaName($blog->getName());
         $this->pageTitleProvider->setTitle($blog->getTitel());
 
         // Commit all data to view
@@ -273,8 +282,8 @@ class BlogController extends ActionController
 
         // Fill <TITLE> Tag from Blog Posts
         $this->pageTitleProvider->setTitle($title);
-        $this->setMetaTitle($title);
-        $this->setMetaDescription($description);
+        $this->metatagServices->setMetaTitle($title);
+        $this->metatagServices->setMetaDescription($description);
 
         // Alle Daten an die View übergeben
         $this->view->assign('title', $title);
@@ -402,7 +411,6 @@ class BlogController extends ActionController
      * action new
      *
      * @param Blog $blog
-     * @IgnoreValidation("blog")
      * @return ResponseInterface
      * @throws Exception
      */
@@ -460,149 +468,6 @@ class BlogController extends ActionController
         return $this->htmlResponse();
     }
 
-    /**
-     * setMetaTitle: META Description und andere Tags füllen
-     *
-     * @param string $_title
-     * @return void
-     */
-    protected function setMetaTitle(string $_title): void
-    {
-        $metaTagManager = $this->metaTagManagerRegistry->getManagerForProperty('og:title');
-        $metaTagManager->removeProperty('og:title');
-        $metaTagManager->addProperty('og:title', $_title . ' ✔ Blog Agentur IBK');
-
-        // Fill Twitter Cards Metatags from Blog Post
-        $metaTagManager = $this->metaTagManagerRegistry->getManagerForProperty('twitter:title');
-        $metaTagManager->removeProperty('twitter:title');
-        $metaTagManager->addProperty('twitter:title', $_title . ' ✔ Blog Agentur IBK');
-    }
-
-    /**
-     * setMetaTitle: META Description und andere Tags füllen
-     *
-     * @param string $_datum
-     * @return void
-     * @throws \Exception
-     */
-    protected function setMetaDate(string $_datum): void
-    {
-        // Calculate Timestamp and ISO-8601 format
-        $datumPublishedTemp = new \DateTime($_datum);
-        $datumPublishedArticle = $datumPublishedTemp->format('c');
-
-        $datumExpirationTemp = new \DateTime('2099-12-31 11:59:59');
-        $datumExpirationArticle = $datumExpirationTemp->format('c');
-
-        // Set META Tags for Open Graph Article Timestamps
-        $metaTagManager = $this->metaTagManagerRegistry->getManagerForProperty('og:article:published_time');
-        $metaTagManager->addProperty('og:article:published_time', $datumPublishedArticle);
-
-        $metaTagManager = $this->metaTagManagerRegistry->getManagerForProperty('og:article:modified_time');
-        $metaTagManager->addProperty('og:article:modified_time', $datumPublishedArticle);
-
-        $metaTagManager = $this->metaTagManagerRegistry->getManagerForProperty('og:article:expiration_time');
-        $metaTagManager->addProperty('og:article:expiration_time', $datumExpirationArticle);
-    }
-
-    /**
-     * setMetaDescription: Beschreibung in META-Tag <description> und diverse Open Graph / Twitter Cards schreiben
-     *
-     * @param string $_description
-     * @return void
-     */
-    protected function setMetaDescription(string $_description): void
-    {
-        if (strlen($_description) < 90) {
-            $description = $_description . ' ✔ TYPO3 Wordpress SEO ✔ Blog Agentur IBK Köln';
-        } elseif (strlen($_description) < 110) {
-            $description = $_description . ' ✔ TYPO3 Wordpress SEO ✔ Agentur IBK';
-        } elseif (strlen($_description) < 130) {
-            $description = $_description . ' ✔ Blog Agentur IBK';
-        } else {
-            $description = $_description;
-        }
-
-        // Fill SEO Metatags from Blog Post
-        $metaTagManager = $this->metaTagManagerRegistry->getManagerForProperty('description');
-        $metaTagManager->removeProperty('description');
-        $metaTagManager->addProperty('description', $description);
-
-        $metaTagManager = $this->metaTagManagerRegistry->getManagerForProperty('title');
-        $metaTagManager->removeProperty('title');
-        $metaTagManager->addProperty('title', $description);
-
-        // Open Graph Description
-        $metaTagManager = $this->metaTagManagerRegistry->getManagerForProperty('og:description');
-        $metaTagManager->removeProperty('og:description');
-        $metaTagManager->addProperty('og:description', $description);
-        
-        // Open Graph ALT-Tag for Image
-        $metaTagManager = $this->metaTagManagerRegistry->getManagerForProperty('og:image:alt');
-        $metaTagManager->removeProperty('og:image:alt');
-        $metaTagManager->addProperty('og:image:alt', $description);
-
-        // Twitter Cards Description
-        $metaTagManager = $this->metaTagManagerRegistry->getManagerForProperty('twitter:description');
-        $metaTagManager->removeProperty('twitter:description');
-        $metaTagManager->addProperty('twitter:description', $description);
-        
-        // Twitter Cards ALT-Tag for Image
-        $metaTagManager = $this->metaTagManagerRegistry->getManagerForProperty('twitter:image:alt');
-        $metaTagManager->removeProperty('twitter:image:alt');
-        $metaTagManager->addProperty('twitter:image:alt', $description);
-
-        $metaTagManager = $this->metaTagManagerRegistry->getManagerForProperty('og:article:tag');
-        $metaTagManager->removeProperty('og:article:tag');
-        $metaTagManager->addProperty('og:article:tag', $description);
-    }
-
-    /*
-    article:author - profile array - Writers of the article.
-    article:section - string - A high-level section name. E.g. Technology
-    */
-
-    /**
-     * setMetaName: Namen des Autors in META-Tag und Open Graph Attribute schreiben
-     *
-     * @param string $name
-     * @return void
-     */
-
-    public function setMetaName(string $name): void
-    {
-        // Set META-Tag Author
-        $metaTagManager = $this->metaTagManagerRegistry->getManagerForProperty('author');
-        $metaTagManager->addProperty('author', $name);
-
-        // Set Open Graph (Facebook) for Author
-        #$metaTagManager = $this->metaTagManagerRegistry->getManagerForProperty('og:type:author');
-        #$metaTagManager->addProperty('og:type:author', $name);
-
-        $metaTagManager = $this->metaTagManagerRegistry->getManagerForProperty('og:article:author');
-        $metaTagManager->addProperty('og:article:author', $name);
-    }
-
-
-    /**
-     * setLink: Absoluten Link der Seite in Open Graph Attribute URL schreiben
-     *
-     * @param string $url
-     * @return void
-     */
-    public function setLink(string $url): void
-    {
-        if (strpos($url, "no_cache") > 0) {
-            $url = substr($url, 0, (strpos($url, "no_cache")-1));
-        }
-        if (strpos($url, "cHash=") > 0) {
-            $url = substr($url, 0, (strpos($url, "cHash=")-1));
-        }
-
-        #$metaTagManager = GeneralUtility::makeInstance(MetaTagManagerRegistry::class)->getManagerForProperty('og:url');
-        #$metaTagManager->removeProperty('og:url');
-        #$metaTagManager->addProperty('og:url', $url);
-    }
 
     
 

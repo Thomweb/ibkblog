@@ -17,6 +17,8 @@ plugin.tx_ibkblog {
 		pageLoginUID = 508
 		# PageUID for Start page Blog; label=Default UID Start Page for Blog:UID der Startseite für den Blog
 		pageStartUID = 75
+		# PageUID for Start page Blog; label=Default UID Start Page for Blog:UID der Startseite für den Blog
+		pageTBUID = 47
 
 	}
 	
