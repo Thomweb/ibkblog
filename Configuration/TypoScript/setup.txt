@@ -12,6 +12,8 @@ plugin.tx_ibkblog {
 		pageLoginUID = {$plugin.tx_ibkblog.pages.pageLoginUID}
 		pageStartUID = {$plugin.tx_ibkblog.pages.pageStartUID}
 		pageTBUID = {$plugin.tx_ibkblog.pages.pageTBUID}
+		pageTBLink = {$plugin.tx_ibkblog.pages.pageTBLink}
+		imageBlogLink = {$plugin.tx_ibkblog.pages.imageBlogLink}
 	}
 }
 

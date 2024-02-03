@@ -17,8 +17,12 @@ plugin.tx_ibkblog {
 		pageLoginUID = 508
 		# PageUID for Start page Blog; label=Default UID Start Page for Blog:UID der Startseite für den Blog
 		pageStartUID = 75
-		# PageUID for Start page Blog; label=Default UID Start Page for Blog:UID der Startseite für den Blog
+		# PageUID for Thomas Berscheid page; label=Default Page Thomas Berscheid for Blog:UID der Seite
 		pageTBUID = 47
+		# Page Link for Thomas Berscheid page; label=Default Page Thomas Berscheid for Blog:UID der Seite
+		pageTBLink = https://www.agentur-ibk.de/agentur-typo3-wordpress/ueber-uns/thomas-berscheid
+		# Image Link for Blog page; label=Image Link Blog
+		imageBlogLink = https://www.agentur-ibk.de/fileadmin/img/Blog/Blog-Nachrichten-Aktuelles-DSC00033-800x300-TYPO3-Wordpress-SEO-Agentur-Koeln.jpg
 
 	}
 	

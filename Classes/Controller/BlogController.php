@@ -92,20 +92,19 @@ class BlogController extends ActionController
 
             if ($blog) {
                 // Fill <TITLE> Tag and META-Tags from Blog Posts
-
                 $blogTitel = $blog->getTitel();
-
-                $data = 'Hier kommt die Maus';
-
-                $headerData = '<script type="application/ld+json">' . json_encode($data) . '</script>';
-
-                $this->pageRenderer->addHeaderData($headerData);
 
                 $this->pageTitleProvider->setTitle($blogTitel);
                 $this->metatagServices->setMetaTitle($blogTitel);
                 $this->metatagServices->setMetaDescription($blog->getKurzfassung());
                 $this->metatagServices->setMetaDate($blog->getDatum());
                 $this->metatagServices->setMetaName($blog->getName());
+
+                // Add structured data to <HEAD> section
+                $data = $this->metatagServices->setStructuredData($blog, $this->settings);
+
+                $headerData = '<script type="application/ld+json">' . json_encode($data) . '</script>';
+                $this->pageRenderer->addHeaderData($headerData);
 
                 // Commit all data to view
                 $this->view->assign('blog', $blog);

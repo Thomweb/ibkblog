@@ -3,9 +3,12 @@ declare(strict_types=1);
 
 namespace Ibk\Ibkblog\Services;
 
+use Exception;
+use DateTime;
 use TYPO3\CMS\Core\MetaTag\MetaTagManagerRegistry;
 use Ibk\Ibkblog\PageTitle\PageTitleProvider;
 use Ibk\Ibkblog\Domain\Repository\BlogRepository;
+use Ibk\Ibkblog\Domain\Model\Blog;
 use TYPO3\CMS\Core\Page\PageRenderer;
 use TYPO3\CMS\Extbase\Object\ObjectManager\ObjectManager;
 
@@ -93,10 +96,6 @@ class MetatagServices {
         $metaTagManager = $this->metaTagManagerRegistry->getManagerForProperty('author');
         $metaTagManager->addProperty('author', $name);
 
-        // Set Open Graph (Facebook) for Author
-        #$metaTagManager = $this->metaTagManagerRegistry->getManagerForProperty('og:type:author');
-        #$metaTagManager->addProperty('og:type:author', $name);
-
         $metaTagManager = $this->metaTagManagerRegistry->getManagerForProperty('og:article:author');
         $metaTagManager->addProperty('og:article:author', $name);
     }
@@ -106,7 +105,7 @@ class MetatagServices {
      *
      * @param string $_datum
      * @return void
-     * @throws \Exception
+     * @throws Exception
      */
     public function setMetaDate(string $_datum): void
     {
@@ -146,9 +145,87 @@ class MetatagServices {
         $metaTagManager->addProperty('twitter:title', $_title . ' ✔ Blog Agentur IBK');
     }
 
+    /**
+     * setStructuredData: Get Data from Blog Object into array
+     *
+     * Die Funktion schreibt Daten aus Blog Objekt in ein Array
+     * Vorlage bei schema.org für Article und Author
+     *
+     * @param Blog $_blog
+     * @param  array $_settings
+     * @return array
+     * @throws Exception
+     */
+    public function setStructuredData(Blog $_blog, array $_settings): array {
+
+        // Get Link to Webseite Domain Root on each Server
+        $server = $_SERVER['HTTP_HOST'];
+
+        // Get Settings with configuration data
+        $pageTBLink = $_settings['pageTBLink'];
+        $imageBlogLink = $_settings['imageBlogLink'];
+
+        // Get Data from Blog Posting
+        $blogName = $_blog->getName();
+        $blogEmail = $_blog->getEmail();
+        $blogTitel = $_blog->getTitel();
+        $blogKurzfassung = $_blog->getKurzfassung();
+        $blogInhalt = strip_tags($_blog->getInhalt());
+        $blogWordCount = str_word_count($blogInhalt);
+
+        $blogTags = $_blog->getTags();
+
+        // get Datum and format according to ISO 8601 Standard
+        $blogDatumTemp = new DateTime($_blog->getDatum());
+        $blogDatum = date_format($blogDatumTemp, "c");
+
+        $blogLink = $_blog->getLink();
+
+        $blogPostLink = '//' . $server . '/blog/' . $blogLink;
+
+        // Fill Data Array for JSON response
+        $dataArray = [];
+
+        $dataArray['@context'] = 'https://schema.org/';
+        $dataArray['@type'] = 'BlogPosting';
+        $dataArray['@id'] = $blogPostLink;
+        $dataArray['url'] = $blogPostLink;
+        $dataArray['mainEntityOfPage'] = $blogTitel;
+        $dataArray['headline'] = $blogTitel;
+        $dataArray['description'] = $blogKurzfassung;
+        $dataArray['articleBody'] = $blogInhalt;
+        $dataArray['datePublished'] = $blogDatum;
+        $dataArray['dateModified'] = $blogDatum;
+        $dataArray['wordCount'] = $blogWordCount;
+
+        if (count($blogTags) > 0) {
+            foreach ($blogTags as $blogTagsKey => $blogTagsValue) {
+                $dataArray['keywords'][] = $blogTagsValue->getName();
+            }
+        }
+
+        $dataArray['author'] = [
+            '@type' => 'Person',
+            '@id' => $pageTBLink,
+            'url' => $pageTBLink,
+            'name' => $blogName
+        ];
+
+        $dataArray['image'] = [
+            '@type' => 'ImageObject',
+            '@id' => $imageBlogLink,
+            'url' => $imageBlogLink,
+            'height' => '362',
+            'width' => '800'
+        ];
+
+        return $dataArray;
+    }
 
     /**
      * setLink: Absoluten Link der Seite in Open Graph Attribute URL schreiben
+     *
+     * derzeit nicht verwendet
      *
      * @param string $url
      * @return void
