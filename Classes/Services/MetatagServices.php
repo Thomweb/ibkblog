@@ -137,6 +137,7 @@ class MetatagServices {
     {
         $metaTagManager = $this->metaTagManagerRegistry->getManagerForProperty('og:title');
         $metaTagManager->removeProperty('og:title');
+        $metaTagManager->removeProperty('canonical');
         $metaTagManager->addProperty('og:title', $_title . ' ✔ Blog Agentur IBK');
 
         // Fill Twitter Cards Metatags from Blog Post

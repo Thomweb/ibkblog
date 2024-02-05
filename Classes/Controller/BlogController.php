@@ -7,6 +7,7 @@ use Ibk\Ibkblog\Services\MetatagServices;
 use Ibk\Ibkblog\Domain\Model\Blog;
 use Psr\Http\Message\ResponseInterface;
 use Ibk\Ibkblog\Domain\Repository\BlogRepository;
+use Ibk\Ibkblog\Seo\EventListener;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use TYPO3\CMS\Core\MetaTag\MetaTagManagerRegistry;
 use TYPO3\CMS\Core\Page\PageRenderer;
@@ -99,6 +100,7 @@ class BlogController extends ActionController
                 $this->metatagServices->setMetaDescription($blog->getKurzfassung());
                 $this->metatagServices->setMetaDate($blog->getDatum());
                 $this->metatagServices->setMetaName($blog->getName());
+                //$this->blogEventListener;
 
                 // Add structured data to <HEAD> section
                 $data = $this->metatagServices->setStructuredData($blog, $this->settings);
@@ -149,6 +151,8 @@ class BlogController extends ActionController
         $this->view->assign('username', $username);
         $this->view->assign('pagestartuid', $pageStartUID);
         $this->view->assign('pageloginuid', $pageLoginUID);
+
+
 
         return $this->htmlResponse();
     }    

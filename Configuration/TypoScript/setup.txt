@@ -77,7 +77,7 @@ page {
 #page.10 {
 #	variables {
 #		page_blog = TEXT
-#		page_blog.value = Ja leck mich
+#		page_blog.value = Hier ein Test
 #	}
 #
 #
@@ -140,4 +140,17 @@ ajax_ibkblog_plugintwo {
    config {
       additionalHeaders = Content-type:application/json
    }
+}
+
+
+plugin.tx_seo {
+
+	view {
+		# cat=plugin.tx_seo/file; type=string; label=Path to template root (FE)
+		templateRootPath = EXT:ibkblog/Resources/Private/Xml/Templates/
+		# cat=plugin.tx_seo/file; type=string; label=Path to template partials (FE)
+		partialRootPath = EXT:ibkblog/Resources/Private/Xml/Partials/
+		# cat=plugin.tx_seo/file; type=string; label=Path to template layouts (FE)
+		layoutRootPath = EXT:ibkblog/Resources/Private/Xml/Layouts/
+	}
 }

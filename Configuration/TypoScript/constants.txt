@@ -25,6 +25,17 @@ plugin.tx_ibkblog {
 		imageBlogLink = https://www.agentur-ibk.de/fileadmin/img/Blog/Blog-Nachrichten-Aktuelles-DSC00033-800x300-TYPO3-Wordpress-SEO-Agentur-Koeln.jpg
 
 	}
-	
 }
 
+
+plugin.tx_seo {
+
+	view {
+	# cat=plugin.tx_seo/file; type=string; label=Path to template root (FE)
+	templateRootPath = EXT:ibkblog/Resources/Private/Xml/Templates/
+	# cat=plugin.tx_seo/file; type=string; label=Path to template partials (FE)
+	partialRootPath = EXT:ibkblog/Resources/Private/Xml/Partials/
+	# cat=plugin.tx_seo/file; type=string; label=Path to template layouts (FE)
+	layoutRootPath = EXT:ibkblog/Resources/Private/Xml/Layouts/
+	}
+}

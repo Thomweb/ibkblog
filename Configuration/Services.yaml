@@ -13,3 +13,9 @@ services:
   Ibk\Ibkblog\PageTitle\PageTitleProvider:
     public: true
 
+  Ibk\Ibkblog\Seo\EventListener\BlogEventListener:
+    tags:
+      - name: event.listener
+        identifier: 'ibkblog/modify-url-for-canonical-tag'
+        event: TYPO3\CMS\Seo\Event\ModifyUrlForCanonicalTagEvent
+        method: 'setCanonicalLink'
