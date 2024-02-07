@@ -32,7 +32,7 @@ final class BlogEventListener
         $blogSlug = '';
 
         if (array_key_exists('HTTP_HOST', $serverParams)) {
-            $blogSlug = $serverParams['HTTP_HOST'];
+            $blogHost = $serverParams['HTTP_HOST'];
         }
         if (array_key_exists('REDIRECT_URL', $serverParams)) {
             $blogSlug = $serverParams['REDIRECT_URL'];
