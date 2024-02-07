@@ -152,18 +152,17 @@ class BlogController extends ActionController
         $this->view->assign('pagestartuid', $pageStartUID);
         $this->view->assign('pageloginuid', $pageLoginUID);
 
-
-
         return $this->htmlResponse();
-    }    
+    }
 
     /**
      * action list
-     * 
+     *
      * @param int $_katid
      * @param int $_tagid
      * @param int $_offset
      * @return ResponseInterface
+     * @throws Exception
      */
     public function listAction(int $_katid = 0, int $_tagid = 0, int $_offset = 0) :ResponseInterface
     {

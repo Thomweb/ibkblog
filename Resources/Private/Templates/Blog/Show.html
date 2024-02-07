@@ -47,7 +47,7 @@
 			
 					<f:if condition="{blog.tags}">
 						<div class="col-4 col-sm-4 col-md-12">
-							<strong>Tags</strong><f:for each="{blog.tags}" as="tag" iteration="tagIteration"><br /><i class="fas fa-check-square"></i> <a href="{f:uri.page(pageUid:pagestartuid)}/taglist/{tag.uid}-{tag.name}" title="Schlagwort: {tag.name} ✔ Blog der Internetagentur Irma Berscheid-Kimeridze ✔ Agentur IBK">{tag.name}</a></f:for><br /> <br /> 
+							<strong>Tags</strong><f:for each="{blog.tags}" as="tag" iteration="tagIteration"><br /><i class="fas fa-check-square"></i> <a href="{f:uri.page(pageUid:pagestartuid)}/taglist/{tag.uid}" title="Schlagwort: {tag.name} ✔ Blog der Internetagentur Irma Berscheid-Kimeridze ✔ Agentur IBK">{tag.name}</a></f:for><br /> <br />
 						</div>
 					</f:if>
 

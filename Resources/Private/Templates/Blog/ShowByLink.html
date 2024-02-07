@@ -7,98 +7,90 @@
         <f:if condition="{blog}">
             <f:then>
 
-                <div class="row">
-                    <article class="col-md-12" itemscope itemtype="https://schema.org/BlogPosting">
+                <article class="row" itemscope itemtype="https://schema.org/BlogPosting">
 
-                        <div class="row">
-                            <div class="col-md-12">
-                                <h1 itemprop="headline">{blog.titel}</h1>
-                            </div>
+                    <div class="col-12">
+                        <h1 itemprop="headline">{blog.titel}</h1>
+                    </div>
+
+                    <div class="col-12">
+                        <img itemprop="image" class="image-embed-item" title="{blog.kurzfassung}" alt="{blog.titel} - {blog.kurzfassung}" src="https://www.agentur-ibk.de/fileadmin/img/Blog/Blog-Nachrichten-Aktuelles-DSC00033-800x300-TYPO3-Wordpress-SEO-Agentur-Koeln.jpg" width="800" height="300">
+                    </div>
+
+                    <div class="col-12 blog-titel">
+                        <div>
+                            <h2 itemprop="abstract">{blog.kurzfassung}</h2>
+                            <i class="fas fa-keyboard"></i>
+                            <span itemprop="author" itemscope itemtype="https://schema.org/Person">
+                                <f:link.page
+                                        pageUid="{settings.pageTBUID}"
+                                        additionalAttributes="{itemprop: 'url'}"
+                                        absolute="true"
+                                        title="Thomas Berscheid ✔ Agentur IBK">
+                                    <span itemprop="name">{blog.name}</span>
+                                </f:link.page>
+                            </span>
+                            <div class="clearfix"></div>
+                            <i class="far fa-clock"></i>
+                            <time
+                                    itemprop="datePublished"
+                                    datetime="{blog.datum -> f:format.date(format: 'c')}">
+                                {blog.datum -> f:format.date(format: 'd.m.Y H:i')}
+                            </time>
                         </div>
+                    </div>
 
-                        <div class="row">
-                            <div class="col-md-12">
-                                <img itemprop="image" class="image-embed-item" title="{blog.kurzfassung}" alt="{blog.titel} - {blog.kurzfassung}" src="https://www.agentur-ibk.de/fileadmin/img/Blog/Blog-Nachrichten-Aktuelles-DSC00033-800x300-TYPO3-Wordpress-SEO-Agentur-Koeln.jpg" width="800" height="300">
-                            </div>
-                        </div>
+                    <div class="col-12 blog-content" itemprop="articleBody">
+                        <f:format.html>{blog.inhalt}</f:format.html>
+                    </div>
 
-                        <div class="row">
-                            <div class="col-md-12 blog-titel">
-                                <div>
-                                    <h2 itemprop="abstract">{blog.kurzfassung}</h2>
-                                    <i class="fas fa-keyboard"></i>
-                                    <span itemprop="author" itemscope itemtype="https://schema.org/Person">
-                                        <f:link.page
-                                                pageUid="{settings.pageTBUID}"
-                                                additionalAttributes="{itemprop: 'url'}"
-                                                absolute="true"
-                                                title="Thomas Berscheid ✔ Agentur IBK">
-                                            <span itemprop="name">{blog.name}</span>
-                                        </f:link.page>
-                                    </span>
-                                    <div class="clearfix"></div>
-                                    <i class="far fa-clock"></i>
-                                    <time
-                                            itemprop="datePublished"
-                                            datetime="{blog.datum -> f:format.date(format: 'c')}">
-                                        {blog.datum -> f:format.date(format: 'd.m.Y H:i')}
-                                    </time>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="col-12 blog-content">
+                        <a href="{f:cObject(typoscriptObjectPath: 'lib.currentURL')}/blog/{blog.link}" itemprop="url" title="{blog.titel}"><i class="far fa-copy"> </i> Link zu diesem Post</a>
+                    </div>
 
-                        <div class="row">
-                            <div class="col-md-12" itemprop="articleBody">
-                                <f:format.html>{blog.inhalt}</f:format.html>
-                            </div>
-                        </div>
 
-                        <div class="row">
-                            <div class="col-md-12">
-                                <a href="{f:cObject(typoscriptObjectPath: 'lib.currentURL')}/blog/{blog.link}" itemprop="url" title="{blog.titel}"><i class="far fa-copy"> </i> Link zu diesem Post</a>
-                            </div>
-                        </div>
-
-                        <p>&nbsp;</p>
-
-                    </article>
-
-                </div>
+                </article>
 
                 <div class="row">
 
-                    <div class="col-md-12" id="bloglist">
+                    <div class="col-12" id="bloglist">
 
                         <div class="row">
 
                             <f:if condition="{blog.kategorie}">
-                                <div class="col-12 col-sm-4 col-md-4">
+                                <div class="col-12 col-sm-4 col-md-4 blog-content">
                                     <strong>Kategorie</strong>
                                     <br /><i class="far fa-check-square"></i> <a href="{f:uri.page(pageUid:pagestartuid)}/katlist/{blog.kategorie.uid}-{blog.kategorie.name}" title="Kategorie: {blog.kategorie.name} ✔ Blog der Internetagentur Irma Berscheid-Kimeridze ✔ Agentur IBK">{blog.kategorie.name}</a><br/>
                                 </div>
                             </f:if>
 
                             <f:if condition="{blog.tags}">
-                                <div class="col-12 col-sm-4 col-md-4">
+                                <div class="col-12 col-sm-4 col-md-4 blog-content">
                                     <strong>Schlagworte</strong>
                                     <f:for each="{blog.tags}" as="tag" iteration="tagIteration">
-                                        <br /><i class="far fa-check-square"></i> <a href="{f:uri.page(pageUid:pagestartuid)}/taglist/{tag.uid}-{tag.name}" title="Schlagwort: {tag.name} ✔ Blog der Internetagentur Irma Berscheid-Kimeridze ✔ Agentur IBK">{tag.name}</a>
+                                        <br /><i class="far fa-check-square"></i> <a href="{f:uri.page(pageUid:pagestartuid)}/taglist/{tag.uid}" title="Schlagwort: {tag.name} ✔ Blog der Internetagentur Irma Berscheid-Kimeridze ✔ Agentur IBK">{tag.name}</a>
                                     </f:for>
                                 </div>
                             </f:if>
 
-                            <div class="col-12 col-sm-4 col-md-4">
+                            <div class="col-12 col-sm-4 col-md-4 blog-content">
                                 <f:link.page pageUid="{pagestartuid}" class="button" title="Zur Übersicht ✔ Blog der Internetagentur Irma Berscheid-Kimeridze ✔ Agentur IBK"><i class="far fa-list-alt"></i> Zur Übersicht</f:link.page>
                             </div>
 
                         </div>
 
                         <div class="row">
-                            <div class="col-12 col-sm-12 col-md-12">
+                            <div class="col-12 col-sm-12 col-md-12 blog-new-posts">
                                 <strong>Neueste Beiträge</strong>
+                                <ul>
                                 <f:for each="{bloglist}" as="bloglist" iteration="bloglistIteration">
-                                    <br /><a class="bread_link_small" title="{bloglist.kurzfassung}" href="{f:uri.page(pageUid:pagestartuid)}/{bloglist.link}"><i class="far fa-caret-square-right"></i> {bloglist.titel}</a>
+                                    <li class="blog-new-post-item">
+                                        <a class="bread_link_small blog-new-post-link" title="{bloglist.kurzfassung}" href="{f:uri.page(pageUid:pagestartuid)}/{bloglist.link}">
+                                            {bloglist.titel}
+                                        </a>
+                                    </li>
                                 </f:for>
+                                </ul>
                             </div>
                         </div>
 

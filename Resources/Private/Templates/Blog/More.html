@@ -32,12 +32,12 @@
     <f:if condition="{pageneu}<={pageall}">
 
     <div class="div_kasten">
-        <a class="button blog-button still-more-items" 
+        <spana class="button blog-button still-more-items"
             data-page="3"
             data-url="{f:uri.action(action: 'more', controller: 'Blog', pluginName: 'PluginOne', arguments: '{page:pageneu}', pageType:'{settings.ajax.pluginOne}')}"
             >
             <i class="fas fa-chevron-down"></i> Mehr Beiträge laden
-        </a>
+        </spana>
     </div>
 
     </f:if>

@@ -34,25 +34,26 @@
 			</f:if>
 
 			<div class="div_kasten">
-			<f:if condition="{blogcounter}">
+				<f:if condition="{blogcounter}">
 
-				<f:if condition="{controller}=='kat'">
-					<f:render partial="Blog/Katbuttons" arguments="{blogs:blogs, blogcounter: blogcounter, blogoffset: blogoffset, blogkatlink: blogkatlink, blogkatname: blogkatname}" />
+					<f:if condition="{controller}=='kat'">
+						<f:render partial="Blog/Katbuttons" arguments="{blogs:blogs, blogcounter: blogcounter, blogoffset: blogoffset, blogkatlink: blogkatlink, blogkatname: blogkatname}" />
+					</f:if>
+
+					<f:if condition="{controller}=='tag'">
+						<f:render partial="Blog/Tagbuttons" arguments="{blogs:blogs, blogcounter: blogcounter, blogoffset: blogoffset, blogtaglink: blogtaglink, blogtagname: blogtagname}" />
+					</f:if>
+
 				</f:if>
-
-				<f:if condition="{controller}=='tag'">
-					<f:render partial="Blog/Tagbuttons" arguments="{blogs:blogs, blogcounter: blogcounter, blogoffset: blogoffset, blogtaglink: blogtaglink, blogtagname: blogtagname}" />
-				</f:if>
-
-			</f:if>
 			</div>
 		</div>
+
 		<div class="col-md-4">
 			<div class="blog_tags">
 				<f:if condition="{tagcloudarray}">
 					<f:then>
 						<f:for each="{tagcloudarray}" as="tag">
-							<a style="font-size: {tag.counter+12}px;" href="{f:uri.page(pageUid:pagestartuid)}/taglist/{tag.uid}-{tag.name}" title="Schlagwort: {tag.name} ({tag.counter} Beiträge) ✔ Blog der Internetagentur Irma Berscheid-Kimeridze ✔ Agentur IBK">{tag.name}</a>
+							<a style="font-size: {tag.counter+12}px;" href="{f:uri.page(pageUid:pagestartuid)}/taglist/{tag.uid}" title="Schlagwort: {tag.name} ({tag.counter} Beiträge) ✔ Blog der Internetagentur Irma Berscheid-Kimeridze ✔ Agentur IBK">{tag.name}</a>
 						</f:for>
 					</f:then>
 				</f:if>
@@ -74,10 +75,10 @@
 						<f:for each="{tagshowarray}" as="tag">
 							<f:if condition="{tag.uid}=={blogtaglink}">
 								<f:then>
-									<a href="{f:uri.page(pageUid:pagestartuid)}/taglist/{tag.uid}-{tag.name}" title="Schlagwort: {tag.name} ✔ Blog der Internetagentur Irma Berscheid-Kimeridze ✔ Agentur IBK"><i class="fas fa-check-square"></i> <strong>{tag.name} ({tag.counter})</strong></a><br/>
+									<a href="{f:uri.page(pageUid:pagestartuid)}/taglist/{tag.uid}" title="Schlagwort: {tag.name} ✔ Blog der Internetagentur Irma Berscheid-Kimeridze ✔ Agentur IBK"><i class="fas fa-check-square"></i> <strong>{tag.name} ({tag.counter})</strong></a><br/>
 								</f:then>
 								<f:else>
-									<a href="{f:uri.page(pageUid:pagestartuid)}/taglist/{tag.uid}-{tag.name}" title="Schlagwort: {tag.name} ✔ Blog der Internetagentur Irma Berscheid-Kimeridze ✔ Agentur IBK">{tag.name} ({tag.counter})</a><br/>
+									<a href="{f:uri.page(pageUid:pagestartuid)}/taglist/{tag.uid}" title="Schlagwort: {tag.name} ✔ Blog der Internetagentur Irma Berscheid-Kimeridze ✔ Agentur IBK">{tag.name} ({tag.counter})</a><br/>
 								</f:else>
 							</f:if>
 						</f:for> <br/>
@@ -85,6 +86,7 @@
 				</f:if>
 			</div>
 		</div>
+
 	</div>
 
 </f:section>

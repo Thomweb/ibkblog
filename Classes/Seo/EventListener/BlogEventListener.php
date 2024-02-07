@@ -24,21 +24,33 @@ final class BlogEventListener
 
     public function setCanonicalLink(ModifyUrlForCanonicalTagEvent $event): void
     {
+        // Get Server Params
         $blogHttp = 'http';
         $serverParams = $event->getRequest()->getServerParams();
 
-        $blogHost = $serverParams['HTTP_HOST'];
-        $blogSlug = $serverParams['REDIRECT_URL'];
+        $blogHost = '';
+        $blogSlug = '';
 
+        if (array_key_exists('HTTP_HOST', $serverParams)) {
+            $blogSlug = $serverParams['HTTP_HOST'];
+        }
+        if (array_key_exists('REDIRECT_URL', $serverParams)) {
+            $blogSlug = $serverParams['REDIRECT_URL'];
+        }
+
+
+        // Check for HTTPS Connection
         if (array_key_exists('REDIRECT_HTTPS', $serverParams)) {
             if ($serverParams['REDIRECT_HTTPS'] == 'on') {
                 $blogHttp = 'https';
             }
         }
 
+        // Get Params for Blog Posting if link is called from XML Sitemap
         if (array_key_exists('tx_ibkblog_blog', $event->getRequest()->getQueryParams())) {
             $arrayBlogEvent = $event->getRequest()->getQueryParams()['tx_ibkblog_blog'];
 
+            // In case of function is called from XML Sitemap Canonical Link is rewritten
             if ((array_key_exists('blog', $arrayBlogEvent)) && (array_key_exists('action', $arrayBlogEvent))) {
                 if ($arrayBlogEvent['action'] == 'show') {
                     $blogUid = $arrayBlogEvent['blog'];
