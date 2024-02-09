@@ -15,7 +15,8 @@ ExtensionUtility::configurePlugin(
     ],
     // non-cacheable actions
     [
-        BlogController::class => 'list, more, new, create, pagelist, pagegrid, pageall, searchList, showByLink, show, page, soap'
+        //BlogController::class => 'list, more, new, create, pagelist, pagegrid, pageall, searchList, showByLink, show, page, soap'
+        BlogController::class => 'list, more, new, create, searchList, showByLink, show, page, soap'
     ]
 );
 

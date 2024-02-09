@@ -46,7 +46,7 @@ use TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException;
  * For the full copyright and license information, please read the
  * LICENSE.txt file that was distributed with this source code.
  *
- *  (c) 2020 Thomas Berscheid <thom@thomweb.de>, IBK
+ *  (c) 2020 - 2024 Thomas Berscheid <thom@thomweb.de>, IBK
  *
  ***/
 
