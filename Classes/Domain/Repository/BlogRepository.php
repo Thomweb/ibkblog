@@ -72,11 +72,8 @@ class BlogRepository extends Repository
     // Gesamtzahl der Beiträge (Blogs) ermitteln
     public function countBlogs()
     {
-
-        // Query aufbauen
         $query = $this->createQuery();
-        $result = $query->execute()->count();
-        return $result;
+        return $query->execute()->count();
     }
 
     // Listfunktion mit Limit, Offset und Order
@@ -96,42 +93,68 @@ class BlogRepository extends Repository
     }
 
     /**
+     * Listfunktion für XML Sitemap
+     *
+     * @return array
+     * @throws Exception
+     */
+    public function findXmlBlogs(): array
+    {
+        $table = "tx_ibkblog_domain_model_blog";
+        $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable($table);
+        return $queryBuilder->select('*')
+            ->from($table)
+            ->orderBy('datum','DESC')
+            ->executeQuery()
+            ->fetchAllAssociative();
+    }
+
+    /**
      * Verfügbare Tags mit Anzahl Beiträgen auslesen
      *
      * @param int $tagid Storage PID
+     * @return string
      * @throws Exception
      */
-    public function getBlogTagName($tagid)
+    public function getBlogTagName($tagid): string
     {
         $table = "tx_ibkblog_domain_model_tag";
         $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable($table);
-        $tagNameArray = $queryBuilder->select('name')->from($table)->where($queryBuilder->expr()->eq('uid', $queryBuilder->createNamedParameter($tagid, \PDO::PARAM_INT)))->execute()->fetchAll();
-        return $tagNameArray[0]['name'];
+        $tagNameArray = $queryBuilder->select('name')
+            ->from($table)
+            ->where($queryBuilder->expr()->eq('uid', $queryBuilder->createNamedParameter($tagid, \PDO::PARAM_INT)))
+            ->executeQuery()
+            ->fetchOne();
+        return $tagNameArray;
     }
 
     /**
      * Verfügbare Kategorien auslesen
      *
      * @param int $pid Storage PID
+     * @return array
      * @throws Exception
      */
-    public function getBlogKategorien($pid)
+    public function getBlogKategorien(int $pid): array
     {
         $table = "tx_ibkblog_domain_model_kategorie";
         $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable($table);
 
         return  $queryBuilder->select('uid', 'name')->from($table)->where(
             $queryBuilder->expr()->eq('pid', $queryBuilder->createNamedParameter($pid, \PDO::PARAM_INT))
-        )->executeQuery()->fetchAllAssociative();
+        )
+            ->executeQuery()
+            ->fetchAllAssociative();
     }
 
     /**
      * Verfügbare Kategorien mit Anzahl Beiträgen auslesen
      *
      * @param int $pid Storage PID
+     * @return array
      * @throws Exception
      */
-    public function getBlogKategorienCount($pid)
+    public function getBlogKategorienCount($pid): array
     {
         $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable('tx_ibkblog_domain_model_kategorie');
         return $queryBuilder->select('tx_ibkblog_domain_model_kategorie.uid', 'tx_ibkblog_domain_model_kategorie.name')
@@ -145,22 +168,26 @@ class BlogRepository extends Repository
         )->where($queryBuilder->expr()->eq('tx_ibkblog_domain_model_kategorie.pid', $queryBuilder->createNamedParameter($pid, \PDO::PARAM_INT)))
             ->orderBy('tx_ibkblog_domain_model_kategorie.name', 'ASC')
             ->groupBy('tx_ibkblog_domain_model_kategorie.uid')
-            ->executeQuery()->fetchAllAssociative();
+            ->executeQuery()
+            ->fetchAllAssociative();
     }
 
     /**
      * Name einer Kategorie auslesen
      *
      * @param int $katid UID for Kategorie
+     * @return string
      * @throws Exception
      */
-    public function getBlogKategorienName(int $katid)
+    public function getBlogKategorienName(int $katid): string
     {
         $table = "tx_ibkblog_domain_model_kategorie";
         $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable($table);
-        $katNameArray = $queryBuilder->select('name')->from($table)->where($queryBuilder->expr()->eq('uid', $queryBuilder->createNamedParameter($katid, \PDO::PARAM_INT)))->execute()->fetchAll();
-        $katName = $katNameArray[0]['name'];
-        return $katName;
+        return $queryBuilder->select('name')
+            ->from($table)
+            ->where($queryBuilder->expr()->eq('uid', $queryBuilder->createNamedParameter($katid, \PDO::PARAM_INT)))
+            ->executeQuery()
+            ->fetchOne();
     }
 
     /**
@@ -184,7 +211,7 @@ class BlogRepository extends Repository
      * @param int   $offset		Where the search should start
      * @return QueryResultInterface
      */
-    public function findByKategorie($katid, $limit, $offset)
+    public function findByKategorie($katid, $limit, $offset): QueryResultInterface
     {
         $query = $this->createQuery();
         $query->matching($query->equals('kategorie', $katid));
@@ -196,11 +223,12 @@ class BlogRepository extends Repository
 
     /**
      * Find all posts with a distinct Tag
-     * 
-     * @param int 	$tagid		UID for Tag
-     * @param int   $limit  	How many posts should be found.
-     * @param int   $offset		Where the search should start
+     *
+     * @param int $tagid UID for Tag
+     * @param int $limit How many posts should be found.
+     * @param int $offset Where the search should start
      * @return QueryResultInterface
+     * @throws InvalidQueryException|Exception
      */
     public function findByTag($tagid, $limit, $offset): QueryResultInterface
     {
@@ -244,6 +272,7 @@ class BlogRepository extends Repository
 
     /**
      * @param $pid
+     * @return mixed[]|\mixed[][]
      * @throws Exception
      */
     public function getBlogTags($pid)
