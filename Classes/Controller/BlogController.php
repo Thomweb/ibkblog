@@ -338,6 +338,21 @@ class BlogController extends ActionController
         return $this->htmlResponse();
     }
 
+    /**
+     * action feedlist
+     *
+     * @return ResponseInterface
+     */
+    public function feedlistAction() :ResponseInterface
+    {
+
+        $blogs = $this->blogRepository->findBlogs(100, 0);
+
+        $this->view->assign('blogs', $blogs);
+
+        return $this->htmlResponse();
+    }
+
 
     /**
      * action page

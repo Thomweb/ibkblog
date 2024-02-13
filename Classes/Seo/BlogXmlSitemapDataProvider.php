@@ -66,7 +66,6 @@ class BlogXmlSitemapDataProvider extends AbstractXmlSitemapDataProvider
             $datumFormatted = date_format($datumTemp, "c");
 
             $uri = (string)$blogXmlListValue['link'];
-            //$datum = $blogXmlListValue['datum'];
 
             $item = [
                 'priority' => 0.5

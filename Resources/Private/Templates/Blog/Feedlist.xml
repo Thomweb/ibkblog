@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<html xmlns:content="http://purl.org/rss/1.0/modules/content/"
+      xmlns:atom="http://www.w3.org/2005/Atom"
+      xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      data-namespace-typo3-fluid="true">
+
+    <rss version="2.0"
+         xmlns:content="http://purl.org/rss/1.0/modules/content/"
+         xmlns:atom="http://www.w3.org/2005/Atom">
+        <channel>
+            <title>{settings.rss.channel.title}</title>
+            <link>{settings.rss.channel.link}</link>
+            <description>{settings.rss.channel.description}</description>
+            <language>{settings.rss.channel.language}</language>
+            <pubDate><f:format.date format="r" date="now" /></pubDate>
+            <lastBuildDate><f:format.date format="r" date="now" /></lastBuildDate>
+            <atom:link href="{f:uri.page(pageType: settings.rss.channel.typeNum, absolute: 'true')}" rel="self" type="application/rss+xml" />
+            <generator>{settings.rss.channel.generator}</generator>
+
+
+            <f:for each="{blogs}" as="blog">
+
+                <item>
+                    <guid isPermaLink="false">news-{blog.uid}</guid>
+                    <pubDate><f:format.date format="r">{blog.datum}</f:format.date></pubDate>
+                    <title>{blog.titel -> f:format.htmlspecialchars()}</title>
+                    <link><f:format.htmlentities>https://www.agentur-ibk.de/blog/{blog.link}</f:format.htmlentities></link>
+                    <description>{blog.kurzfassung -> f:format.stripTags() -> f:format.htmlspecialchars()}</description>
+                    <content:encoded><f:format.cdata><f:format.html>{blog.inhalt}</f:format.html></f:format.cdata></content:encoded>
+
+                </item>
+
+            </f:for>
+
+
+        </channel>
+    </rss>
+</html>
+
+
+

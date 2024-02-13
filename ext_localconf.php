@@ -22,6 +22,18 @@ ExtensionUtility::configurePlugin(
 
 ExtensionUtility::configurePlugin(
     'Ibkblog',
+    'Feed',
+    [
+        BlogController::class => 'feedlist'
+    ],
+    // non-cacheable actions
+    [
+        BlogController::class => 'feedlist'
+    ]
+);
+
+ExtensionUtility::configurePlugin(
+    'Ibkblog',
     'PluginOne',
     [
         BlogController::class => 'more'
