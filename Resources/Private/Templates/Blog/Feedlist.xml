@@ -3,7 +3,6 @@
       xmlns:atom="http://www.w3.org/2005/Atom"
       xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
       data-namespace-typo3-fluid="true">
-
     <rss version="2.0"
          xmlns:content="http://purl.org/rss/1.0/modules/content/"
          xmlns:atom="http://www.w3.org/2005/Atom">
@@ -16,22 +15,30 @@
             <lastBuildDate><f:format.date format="r" date="now" /></lastBuildDate>
             <atom:link href="{f:uri.page(pageType: settings.rss.channel.typeNum, absolute: 'true')}" rel="self" type="application/rss+xml" />
             <generator>{settings.rss.channel.generator}</generator>
+            <copyright>{settings.rss.channel.copyright}</copyright>
+            <ttl>{settings.rss.channel.ttl}</ttl>
 
+            <image>
+                <url>{settings.rss.channel.image.url}</url>
+                <title>{settings.rss.channel.title}</title>
+                <link>{settings.rss.channel.link}</link>
+                <width>{settings.rss.channel.image.width}</width>
+                <height>{settings.rss.channel.image.height}</height>
+                <description>{settings.rss.channel.image.description}</description>
+            </image>
 
             <f:for each="{blogs}" as="blog">
-
                 <item>
-                    <guid isPermaLink="false">news-{blog.uid}</guid>
+                    <guid isPermaLink="true">{feedPageLink}{blog.link}</guid>
                     <pubDate><f:format.date format="r">{blog.datum}</f:format.date></pubDate>
                     <title>{blog.titel -> f:format.htmlspecialchars()}</title>
-                    <link><f:format.htmlentities>https://www.agentur-ibk.de/blog/{blog.link}</f:format.htmlentities></link>
+                    <link><f:format.htmlentities>{feedPageLink}{blog.link}</f:format.htmlentities></link>
                     <description>{blog.kurzfassung -> f:format.stripTags() -> f:format.htmlspecialchars()}</description>
-                    <content:encoded><f:format.cdata><f:format.html>{blog.inhalt}</f:format.html></f:format.cdata></content:encoded>
-
+                    <content:encoded><f:format.cdata>{blog.inhalt -> f:format.stripTags(allowedTags: "<b></b><p></p><ul></ul><li></li><blockquote></blockquote>")}</f:format.cdata></content:encoded>
+                    <category><f:format.cdata>{blog.kategorie.name -> f:format.htmlspecialchars()}</f:format.cdata></category>
+                    <author>{blog.email} ({blog.name})</author>
                 </item>
-
             </f:for>
-
 
         </channel>
     </rss>

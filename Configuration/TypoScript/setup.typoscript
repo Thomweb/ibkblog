@@ -43,6 +43,8 @@ lib.currentURL.data = getIndpEnv:TYPO3_REQUEST_HOST
 page {
 	headerData { 
 		## META Canonical tag
+		## Old Version up to TYPO3 12.4.9
+		## better with PageRenderer API
 #		200 = TEXT
 #		200 {
 #			htmlSpecialChars = 1
@@ -70,6 +72,11 @@ page {
 			}
 			wrap = <meta property="og:url" content="|" />
 	    }
+
+		## Link to Blog Atom XML RSS Feed
+		220 = TEXT
+		220.wrap = <link rel="alternate" type="application/rss+xml" title="Agentur IBK Blog Feed" href="https://www.agentur-ibk.de/feed" />
+
   	}
 }
 
@@ -120,11 +127,19 @@ plugin.tx_ibkblog {
 			channel {
 				title = Agentur IBK Blog
 				description = Blogbeiträge der Internetagentur Irma Berscheid-Kimeridze
-				language = de
-				copyright = Internetagentur Irma Berscheid-Kimeridze
-				generator = Agentur IBK
+				language = de-DE
+				copyright = © 2015-2024 Internetagentur Irma Berscheid-Kimeridze
+				generator = Blog Extension Agentur IBK
 				typeNum = 9818
-				link = https://www.agentur-ibk.de/feed.xml
+				link = https://www.agentur-ibk.de/feed/
+				ttl = 120
+
+				image {
+					url = https://www.agentur-ibk.de/fileadmin/img/agentur/DSC01202-144x88.jpg
+					width = 144
+					height = 88
+					description = Logo Agentur IBK
+				}
 			}
 		}
 	}
@@ -142,8 +157,8 @@ xml_ibkblog_feed {
 		disablePrefixComment = 1
 		no_cache = 0
 		metaCharset = utf-8
-		additionalHeaders = Content-Type:text/xml;charset=utf-8
-		additionalHeaders.10.header = Content-Type:text/xml;charset=utf-8
+		additionalHeaders = Content-Type:application/rss+xml;charset=utf-8
+		additionalHeaders.10.header = Content-Type:application/rss+xml;charset=utf-8
 		linkVars >
 	}
 

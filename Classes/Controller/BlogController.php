@@ -4,7 +4,9 @@ namespace Ibk\Ibkblog\Controller;
 use Doctrine\DBAL\Exception;
 use Ibk\Ibkblog\PageTitle\PageTitleProvider;
 use Ibk\Ibkblog\Services\MetatagServices;
+use Ibk\Ibkblog\Services\ServerServices;
 use Ibk\Ibkblog\Domain\Model\Blog;
+use MongoDB\Driver\Server;
 use Psr\Http\Message\ResponseInterface;
 use Ibk\Ibkblog\Domain\Repository\BlogRepository;
 use Ibk\Ibkblog\Seo\EventListener;
@@ -66,6 +68,7 @@ class BlogController extends ActionController
         MetaTagManagerRegistry $metaTagManagerRegistry,
         PageRenderer $pageRenderer,
         MetatagServices $metatagServices,
+        ServerServices $serverServices,
         private readonly PageTitleProvider $pageTitleProvider
     )
     {
@@ -73,6 +76,7 @@ class BlogController extends ActionController
         $this->metaTagManagerRegistry = $metaTagManagerRegistry;
         $this->pageRenderer = $pageRenderer;
         $this->metatagServices = $metatagServices;
+        $this->serverServices = $serverServices;
     }
 
 
@@ -345,14 +349,19 @@ class BlogController extends ActionController
      */
     public function feedlistAction() :ResponseInterface
     {
-
+        // Get all Blog Postings (2024: no limit, no offset)
         $blogs = $this->blogRepository->findBlogs(100, 0);
 
+        // Get Server Params for Link to Blog Page and Slug
+        $serverParams = $this->request->getServerParams();
+        $blogSlug = 'blog';
+        $feedPageLink = $this->serverServices->getBlogPageLink($serverParams, $blogSlug);
+
         $this->view->assign('blogs', $blogs);
+        $this->view->assign('feedPageLink', $feedPageLink);
 
         return $this->htmlResponse();
     }
-
 
     /**
      * action page
