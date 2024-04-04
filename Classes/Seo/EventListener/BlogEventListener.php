@@ -4,27 +4,25 @@ declare(strict_types=1);
 
 namespace Ibk\Ibkblog\Seo\EventListener;
 
-use Ibk\Ibkblog\Services\MetatagServices;
 use Ibk\Ibkblog\Services\ServerServices;
 use TYPO3\CMS\Seo\Event\ModifyUrlForCanonicalTagEvent;
-use Ibk\Ibkblog\Domain\Model\Blog;
 use Ibk\Ibkblog\Domain\Repository\BlogRepository;
 
 final class BlogEventListener
 {
     /**
-     * @param Ibk\Ibkblog\Domain\Repository\BlogRepository $blogRepository
+     * @param BlogRepository $blogRepository
+     * @param ServerServices $serverServices
      */
     private BlogRepository $blogRepository;
+    private ServerServices $serverServices;
 
     public function __construct(
         BlogRepository $blogRepository,
-        MetatagServices $metatagServices,
         ServerServices $serverServices
     )
     {
         $this->blogRepository = $blogRepository;
-        $this->metatagServices = $metatagServices;
         $this->serverServices = $serverServices;
     }
 

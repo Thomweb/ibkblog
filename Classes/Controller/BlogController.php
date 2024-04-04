@@ -6,15 +6,11 @@ use Ibk\Ibkblog\PageTitle\PageTitleProvider;
 use Ibk\Ibkblog\Services\MetatagServices;
 use Ibk\Ibkblog\Services\ServerServices;
 use Ibk\Ibkblog\Domain\Model\Blog;
-use MongoDB\Driver\Server;
 use Psr\Http\Message\ResponseInterface;
 use Ibk\Ibkblog\Domain\Repository\BlogRepository;
-use Ibk\Ibkblog\Seo\EventListener;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
-use TYPO3\CMS\Core\MetaTag\MetaTagManagerRegistry;
 use TYPO3\CMS\Core\Page\PageRenderer;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Object\ObjectManager\ObjectManager;
 use TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException;
 
 /***************************************************************
@@ -59,13 +55,15 @@ class BlogController extends ActionController
 {
 
     /**
-     * @param Ibk\Ibkblog\Domain\Repository\BlogRepository $blogRepository
+     * @param BlogRepository $blogRepository
      */
     private BlogRepository $blogRepository;
+    private PageRenderer $pageRenderer;
+    private MetatagServices $metatagServices;
+    private ServerServices $serverServices;
 
     public function __construct(
         BlogRepository $blogRepository,
-        MetaTagManagerRegistry $metaTagManagerRegistry,
         PageRenderer $pageRenderer,
         MetatagServices $metatagServices,
         ServerServices $serverServices,
@@ -73,7 +71,6 @@ class BlogController extends ActionController
     )
     {
         $this->blogRepository = $blogRepository;
-        $this->metaTagManagerRegistry = $metaTagManagerRegistry;
         $this->pageRenderer = $pageRenderer;
         $this->metatagServices = $metatagServices;
         $this->serverServices = $serverServices;
@@ -104,7 +101,6 @@ class BlogController extends ActionController
                 $this->metatagServices->setMetaDescription($blog->getKurzfassung());
                 $this->metatagServices->setMetaDate($blog->getDatum());
                 $this->metatagServices->setMetaName($blog->getName());
-                //$this->blogEventListener;
 
                 // Add structured data to <HEAD> section
                 $data = $this->metatagServices->setStructuredData($blog, $this->settings);

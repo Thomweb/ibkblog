@@ -6,30 +6,19 @@ namespace Ibk\Ibkblog\Services;
 use Exception;
 use DateTime;
 use TYPO3\CMS\Core\MetaTag\MetaTagManagerRegistry;
-use Ibk\Ibkblog\PageTitle\PageTitleProvider;
-use Ibk\Ibkblog\Domain\Repository\BlogRepository;
 use Ibk\Ibkblog\Domain\Model\Blog;
-use TYPO3\CMS\Core\Page\PageRenderer;
-use TYPO3\CMS\Extbase\Object\ObjectManager\ObjectManager;
 
-class MetatagServices {
+class MetatagServices
+{
+
+    private MetaTagManagerRegistry $metaTagManagerRegistry;
 
     public function __construct(
-        BlogRepository $blogRepository,
-        MetaTagManagerRegistry $metaTagManagerRegistry,
-        PageRenderer $pageRenderer,
-        private readonly PageTitleProvider $pageTitleProvider
+        MetaTagManagerRegistry $metaTagManagerRegistry
     )
     {
-        $this->blogRepository = $blogRepository;
         $this->metaTagManagerRegistry = $metaTagManagerRegistry;
-        $this->pageRenderer = $pageRenderer;
     }
-
-    /*
-    article:author - profile array - Writers of the article.
-    article:section - string - A high-level section name. E.g. Technology
-    */
 
     /**
      * setMetaDescription: Beschreibung in META-Tag <description> und diverse Open Graph / Twitter Cards schreiben
