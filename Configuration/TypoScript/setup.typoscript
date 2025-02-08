@@ -75,7 +75,7 @@ page {
 
 		## Link to Blog Atom XML RSS Feed
 		220 = TEXT
-		220.wrap = <link rel="alternate" type="application/rss+xml" title="Agentur IBK Blog Feed" href="https://www.agentur-ibk.de/feed" />
+		220.wrap = <link rel="alternate" type="application/rss+xml" title="Agentur IBK Blog Feed" href="/feed" />
 
   	}
 }
@@ -131,11 +131,11 @@ plugin.tx_ibkblog {
 				copyright = © 2015-2024 Internetagentur Irma Berscheid-Kimeridze
 				generator = Blog Extension Agentur IBK
 				typeNum = 9818
-				link = https://www.agentur-ibk.de/feed/
+				link = /feed/
 				ttl = 120
 
 				image {
-					url = https://www.agentur-ibk.de/fileadmin/img/agentur/DSC01202-144x88.jpg
+					url = /fileadmin/img/agentur/DSC01202-144x88.jpg
 					width = 144
 					height = 88
 					description = Logo Agentur IBK
